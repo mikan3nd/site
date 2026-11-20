@@ -1,397 +1,820 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f8fafc">
-<meta name="description" content="mikanは現在、システムメンテナンスを実施しています。">
-<title>メンテナンス中 | mikan.</title>
-
-<style>
-:root {
-  color-scheme: light;
-  --bg:#f8fafc;
-  --card:rgba(255,255,255,.82);
-  --text:#334155;
-  --heading:#0f172a;
-  --muted:#64748b;
-  --border:#e2e8f0;
-  --accent:#f97316;
-  --accent-bg:#fff7ed;
-  --button:#0f172a;
-  --button-text:white;
-  --shadow:0 24px 80px rgba(15,23,42,.07);
-}
-:root.dark {
-  color-scheme:dark;
-  --bg:#080d19;
-  --card:rgba(17,24,39,.85);
-  --text:#cbd5e1;
-  --heading:#f8fafc;
-  --muted:#94a3b8;
-  --border:#273449;
-  --accent:#fb923c;
-  --accent-bg:rgba(249,115,22,.10);
-  --button:#f8fafc;
-  --button-text:#0f172a;
-  --shadow:0 24px 80px rgba(0,0,0,.25);
-}
-* {box-sizing:border-box}
-html {scroll-behavior:smooth}
-body {
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,"Noto Sans JP",system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased;
-  transition:background .3s,color .3s;
-}
-button,a {-webkit-tap-highlight-color:transparent}
-.ambient {
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:-1;
-}
-.ambient span {
-  position:absolute;
-  width:350px;
-  height:350px;
-  border-radius:50%;
-  background:rgba(249,115,22,.10);
-  filter:blur(100px);
-}
-.ambient span:first-child {top:-170px;left:-100px}
-.ambient span:last-child {right:-150px;bottom:5%;background:rgba(245,158,11,.08)}
-
-header {
-  width:min(100% - 40px,1050px);
-  margin:auto;
-  padding:25px 0;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.brand {
-  display:flex;
-  align-items:center;
-  gap:11px;
-  color:var(--heading);
-  font-size:21px;
-  font-weight:750;
-  letter-spacing:-.7px;
-}
-.logo {
-  width:37px;height:37px;
-  display:grid;place-items:center;
-  border-radius:12px;
-  background:linear-gradient(135deg,#f97316,#fbbf24);
-  color:white;
-  box-shadow:0 5px 18px #f9731630;
-}
-.logo svg {width:22px}
-.brand-dot {color:var(--accent)}
-.theme {
-  width:42px;height:42px;
-  display:grid;place-items:center;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:13px;
-  color:var(--text);
-  cursor:pointer;
-  transition:.2s;
-}
-.theme:hover {transform:translateY(-2px)}
-.theme svg {width:20px}
-
-main {
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:45px 20px;
-}
-.content {
-  width:100%;
-  max-width:700px;
-  padding:52px 48px;
-  border:1px solid var(--border);
-  border-radius:28px;
-  background:var(--card);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-  box-shadow:var(--shadow);
-  text-align:center;
-}
-.eyebrow {
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  padding:9px 15px;
-  background:var(--accent-bg);
-  color:var(--accent);
-  border:1px solid #f9731625;
-  border-radius:100px;
-  font-size:12px;
-  font-weight:650;
-  letter-spacing:.2px;
-}
-.dot {
-  width:8px;height:8px;
-  border-radius:50%;
-  background:var(--accent);
-  box-shadow:0 0 0 4px #f9731625;
-  animation:pulse 2s infinite;
-}
-.art {
-  width:120px;height:120px;
-  margin:36px auto 30px;
-  position:relative;
-  display:grid;
-  place-items:center;
-  animation:float 5s ease-in-out infinite;
-}
-.art::before {
-  content:"";
-  position:absolute;
-  inset:8px;
-  background:#f9731620;
-  filter:blur(25px);
-  border-radius:50%;
-}
-.gear {
-  width:85px;
-  color:var(--accent);
-  position:relative;
-  animation:rotate 18s linear infinite;
-}
-.infinity {
-  position:absolute;
-  right:0;bottom:0;
-  width:42px;height:42px;
-  display:grid;place-items:center;
-  border-radius:50%;
-  background:var(--card);
-  border:1px solid var(--border);
-  color:#f59e0b;
-  font-size:27px;
-  box-shadow:0 5px 20px #00000012;
-}
-h1 {
-  margin:0 0 17px;
-  color:var(--heading);
-  font-size:clamp(26px,5vw,36px);
-  line-height:1.65;
-  letter-spacing:-1px;
-}
-.description {
-  max-width:510px;
-  margin:0 auto;
-  font-size:14px;
-  line-height:2.1;
-  color:var(--muted);
-}
-.notice {
-  margin:30px auto 0;
-  max-width:490px;
-  padding:16px 18px;
-  border:1px solid var(--border);
-  border-radius:15px;
-  text-align:left;
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-}
-.notice-icon {
-  color:var(--accent);
-  flex-shrink:0;
-  font-size:18px;
-}
-.notice strong {
-  display:block;
-  color:var(--heading);
-  font-size:12px;
-  margin-bottom:5px;
-}
-.notice p {
-  margin:0;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.8;
-}
-.actions {
-  margin-top:30px;
-  display:flex;
-  justify-content:center;
-}
-.x-button {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding:15px 24px;
-  border-radius:12px;
-  background:var(--button);
-  color:var(--button-text);
-  text-decoration:none;
-  font-size:13px;
-  font-weight:650;
-  transition:transform .2s,opacity .2s;
-}
-.x-button:hover {transform:translateY(-3px);opacity:.88}
-.x-button svg {width:17px;height:17px}
-
-footer {
-  width:min(100% - 40px,1050px);
-  margin:auto;
-  padding:25px 0;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  color:var(--muted);
-  font-size:11px;
-}
-.footer-brand {font-weight:700;color:var(--heading)}
-
-@keyframes rotate {to{transform:rotate(360deg)}}
-@keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-@keyframes pulse {50%{opacity:.45}}
-
-@media(max-width:600px) {
-  header {width:calc(100% - 36px);padding:19px 0}
-  main {padding:25px 16px}
-  .content {padding:39px 22px;border-radius:23px}
-  .art {margin:29px auto 24px}
-  .description {font-size:13px}
-  .notice {padding:14px}
-  .x-button {width:100%;padding:15px 10px}
-  footer {width:calc(100% - 36px);gap:10px;flex-wrap:wrap}
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after {
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    scroll-behavior:auto!important;
-  }
-}
-</style>
-
-<script>
-(function(){
-  let theme;
-  try {theme=localStorage.getItem("color-theme")} catch(e){}
-  if(!theme) {
-    theme=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
-  }
-  document.documentElement.classList.toggle("dark",theme==="dark");
-})();
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>みかん | Mikan Official Website</title>
+  <!-- Google Fonts: Zen Maru Gothic & Plus Jakarta Sans & Noto Sans JP -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mikan: {
+              50: '#FFF8F0',
+              100: '#FFEFDB',
+              200: '#FFDCB5',
+              300: '#FFC285',
+              400: '#FF9E40',
+              500: '#FF7A00',
+              600: '#E06500',
+              700: '#B84E00',
+            },
+            leaf: {
+              50: '#F1F8F2',
+              100: '#DCF0DF',
+              500: '#388E3C',
+              600: '#2E7D32',
+              700: '#1B5E20',
+            },
+            cream: '#FFFDF9',
+            charcoal: '#2D2926',
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Zen Maru Gothic"', '"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(255, 122, 0, 0.12)',
+            'card': '0 4px 20px -2px rgba(45, 41, 38, 0.06)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FFFDF9;
+      color: #2D2926;
+      overflow-x: hidden;
+    }
+    .glass-nav {
+      background: rgba(255, 253, 249, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .page-transition {
+      animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+    /* Rich text content styling from microCMS */
+    .cms-content h1, .cms-content h2, .cms-content h3 {
+      font-weight: 700;
+      margin-top: 1.25em;
+      margin-bottom: 0.5em;
+      color: #2D2926;
+    }
+    .cms-content h2 { font-size: 1.25rem; border-left: 4px solid #FF7A00; padding-left: 0.75rem; }
+    .cms-content p { margin-bottom: 1em; line-height: 1.8; }
+    .cms-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1em; }
+    .cms-content a { color: #FF7A00; text-decoration: underline; }
+    .cms-content img { border-radius: 1rem; margin: 1rem 0; max-width: 100%; height: auto; }
+  </style>
 </head>
+<body class="min-h-screen flex flex-col selection:bg-mikan-200 selection:text-charcoal">
 
-<body>
-<div class="ambient" aria-hidden="true">
-  <span></span><span></span>
-</div>
-
-<header>
-  <div class="brand">
-    <div class="logo">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="13" r="7"/>
-        <path stroke-linecap="round" d="M12 6c0-2 1.5-3.5 3.5-3.5-0 2-1.5 3.5-3.5 3.5z"/>
-      </svg>
-    </div>
-    <span>mikan<span class="brand-dot">.</span></span>
+  <!-- Background Decorative Blobs -->
+  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-mikan-200/40 blur-3xl"></div>
+    <div class="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-leaf-100/50 blur-3xl"></div>
+    <div class="absolute -bottom-24 right-1/4 w-96 h-96 rounded-full bg-mikan-100/60 blur-3xl"></div>
   </div>
 
-  <button class="theme" id="theme" aria-label="テーマを切り替える">
-    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="4"/>
-      <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>
-    </svg>
-    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
-      <path stroke-linecap="round" d="M20.35 15.35A9 9 0 018.65 3.65 9 9 0 1020.35 15.35z"/>
-    </svg>
-  </button>
-</header>
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-mikan-100 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#home" onclick="navigateTo('home', event)" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-mikan-400 to-mikan-500 flex items-center justify-center shadow-md shadow-mikan-500/20 group-hover:scale-105 transition-transform">
+          <!-- Custom Mikan SVG Icon -->
+          <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="20" r="12" fill="#FFFDF9"/>
+            <circle cx="18" cy="20" r="10.5" fill="#FF7A00"/>
+            <path d="M18 8C18 8 19.5 3.5 24.5 4.5C24.5 4.5 23 8.5 18 8Z" fill="#2E7D32"/>
+            <path d="M18 8C18 8 15 5 12 6.5C12 6.5 14.5 9.5 18 8Z" fill="#388E3C"/>
+            <circle cx="14" cy="17" r="1.2" fill="#FFF8F0" fill-opacity="0.7"/>
+            <circle cx="12.5" cy="20" r="0.8" fill="#FFF8F0" fill-opacity="0.6"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-display font-black text-2xl tracking-tight text-charcoal group-hover:text-mikan-500 transition-colors">みかん</span>
+          <span class="block text-[10px] font-bold tracking-widest text-mikan-500 uppercase -mt-1">Mikan Studio</span>
+        </div>
+      </a>
 
-<main>
-  <section class="content">
-    <div class="eyebrow">
-      <span class="dot"></span>
-      SYSTEM MAINTENANCE
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1 bg-mikan-50/80 p-1.5 rounded-full border border-mikan-100" id="desktop-nav">
+        <button data-route="home" onclick="navigateTo('home')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all">Home</button>
+        <button data-route="news" onclick="navigateTo('news')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5">
+          お知らせ
+          <span class="w-2 h-2 rounded-full bg-mikan-500 animate-pulse"></span>
+        </button>
+        <button data-route="sns" onclick="navigateTo('sns')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all">SNS</button>
+        <button data-route="contact" onclick="navigateTo('contact')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all">Contact</button>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-mikan-50 text-charcoal hover:bg-mikan-100 transition-colors" aria-label="メニューを開く">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
     </div>
 
-    <div class="art" aria-hidden="true">
-      <svg class="gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>
-      <div class="infinity">∞</div>
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-mikan-100 bg-cream px-4 pt-3 pb-6 space-y-2 shadow-lg">
+      <button data-route="home" onclick="navigateTo('home'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
+        <span>Home</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+      <button data-route="news" onclick="navigateTo('news'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
+        <span>お知らせ (News)</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+      <button data-route="sns" onclick="navigateTo('sns'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
+        <span>SNSリンク</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+      <button data-route="contact" onclick="navigateTo('contact'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
+        <span>お問い合わせ (Contact)</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
     </div>
+  </header>
 
-    <h1>現在、mikan は<br>メンテナンス中です</h1>
+  <!-- Main Content Area (Dynamic SPA Router View) -->
+  <main id="app-view" class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+    <!-- Content rendered via JS -->
+  </main>
 
-    <p class="description">
-      いつも mikan をご利用いただき、ありがとうございます。<br>
-      現在、システムのアップデートおよび品質向上のため、
-      メンテナンスを実施しております。<br>
-      ご不便をおかけしますが、今しばらくお待ちください。
-    </p>
-
-    <div class="notice">
-      <span class="notice-icon">ⓘ</span>
-      <div>
-        <strong>お問い合わせ・最新情報について</strong>
-        <p>メンテナンスの進捗やサービス再開のお知らせは、公式Xにてご案内いたします。</p>
+  <!-- Detail Modal (For News Articles) -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal/50 backdrop-blur-sm transition-opacity" onclick="closeModalOnBackdrop(event)">
+    <div class="bg-cream rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl border border-mikan-100 p-6 sm:p-8 relative animate-[fadeSlideUp_0.25s_ease-out]">
+      <button onclick="closeModal()" class="sticky top-0 float-right p-2 rounded-full bg-mikan-50 text-charcoal hover:bg-mikan-500 hover:text-white transition-colors" aria-label="閉じる">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="modal-body" class="clear-both pt-2">
+        <!-- Dynamic Modal Content -->
       </div>
     </div>
+  </div>
 
-    <div class="actions">
-      <a class="x-button" href="https://x.com/mikan3nd"
-        target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-        公式Xで最新情報を確認
-      </a>
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-charcoal text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium">
+      <span class="w-2.5 h-2.5 rounded-full bg-mikan-400"></span>
+      <span id="toast-message">通知メッセージ</span>
     </div>
-  </section>
-</main>
+  </div>
 
-<footer>
-  <span class="footer-brand">mikan.</span>
-  <span>© 2026 mikan. All rights reserved.</span>
-</footer>
+  <!-- Footer -->
+  <footer class="bg-white border-t border-mikan-100 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-mikan-100">
+        <div class="md:col-span-2 space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-mikan-500 flex items-center justify-center text-white font-display font-black text-lg">み</div>
+            <span class="font-display font-black text-xl text-charcoal">みかん (Mikan)</span>
+          </div>
+        </div>
 
-<script>
-const root=document.documentElement;
-const sun=document.getElementById("sun");
-const moon=document.getElementById("moon");
+        <div>
+          <h3 class="font-display font-bold text-sm text-charcoal mb-3">ページ一覧</h3>
+          <ul class="space-y-2 text-sm text-neutral-600">
+            <li><a href="#home" onclick="navigateTo('home', event)" class="hover:text-mikan-500 transition-colors">Home (トップ)</a></li>
+            <li><a href="#news" onclick="navigateTo('news', event)" class="hover:text-mikan-500 transition-colors">お知らせ</a></li>
+            <li><a href="#sns" onclick="navigateTo('sns', event)" class="hover:text-mikan-500 transition-colors">公式SNSリンク</a></li>
+            <li><a href="#contact" onclick="navigateTo('contact', event)" class="hover:text-mikan-500 transition-colors">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
 
-function updateThemeIcon(){
-  const dark=root.classList.contains("dark");
-  sun.style.display=dark?"block":"none";
-  moon.style.display=dark?"none":"block";
-  document.querySelector('meta[name="theme-color"]').content=
-    dark?"#080d19":"#f8fafc";
-}
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+        <p>&copy; 2026 みかん (Mikan). All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-document.getElementById("theme").addEventListener("click",()=>{
-  const dark=root.classList.toggle("dark");
-  try {
-    localStorage.setItem("color-theme",dark?"dark":"light");
-  } catch(e){}
-  updateThemeIcon();
-});
+  <!-- Application Logic & Data -->
+  <script>
+    // ==========================================
+    // 1. State & Configuration
+    // ==========================================
+    const DISCORD_USER_ID = '1498667817481011301';
 
-updateThemeIcon();
-</script>
+    const STATE = {
+      currentRoute: 'home',
+      cmsConfig: {
+        serviceDomain: 'swe2db8jva',
+        apiKey: 'ksq03pQ5FRz9yDM47YPDyxlqhzlQir5TGStQ',
+        endpoint: 'news'
+      },
+      cmsStatus: 'idle', // 'idle' | 'loading' | 'success' | 'error'
+      cmsArticles: [],
+      discord: {
+        avatarUrl: null,
+        status: 'offline', // 'online' | 'idle' | 'dnd' | 'offline'
+        username: 'みかん'
+      }
+    };
+
+    // Fallback News Articles (Displayed silently if microCMS endpoint has no entries or is unreachable)
+    const FALLBACK_NEWS = [
+      {
+        id: 'sample-1',
+        title: '「みかん」公式ホームページをリニューアル公開しました！',
+        publishedAt: '2026-11-15T10:00:00.000Z',
+        category: { name: 'お知らせ' },
+        content: '<p>いつも応援ありがとうございます。「みかん」の公式ホームページを新しくオープンいたしました！</p><p>新しいサイトでは、日々の活動のお知らせやSNSでの発信情報をまとめてお届けしていきます。</p><h2>今後の予定</h2><ul><li>新作Web企画の公開</li><li>デザイン制作の裏話や技術メモの更新</li><li>SNSでの活動発信強化</li></ul><p>今後ともどうぞよろしくお願いいたします。</p>'
+      },
+      {
+        id: 'sample-2',
+        title: '冬のクリエイターイベントに出展・参加します',
+        publishedAt: '2026-10-20T09:00:00.000Z',
+        category: { name: 'イベント' },
+        content: '<p>来月開催されるオンライン＆オフライン合同のクリエイター展示会に参加することが決定しました。</p><p>当日はオリジナルグッズやUIデザイン資料の展示を予定しています。詳細はSNSでも順次お知らせいたします。</p>'
+      },
+      {
+        id: 'sample-3',
+        title: 'Discordコミュニティ「みかん箱」を開設しました',
+        publishedAt: '2026-10-05T18:00:00.000Z',
+        category: { name: 'コミュニティ' },
+        content: '<p>クリエイター同士の雑談やアイデア交換ができるDiscordサーバーを開設しました。SNSページからぜひご参加ください。</p>'
+      }
+    ];
+
+    // Social Links Data
+    const SNS_DATA = [
+      {
+        name: 'X (Twitter)',
+        handle: '@mikan3nd',
+        description: '日々の制作進捗やお知らせは、こちらのXアカウントで発信しています。',
+        url: 'https://x.com/mikan3nd',
+        badge: 'メインアカウント',
+        bgClass: 'bg-neutral-900 text-white',
+        accentClass: 'border-neutral-200 hover:border-neutral-900',
+        iconSvg: `<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
+      }
+    ];
+
+    // ==========================================
+    // 2. Discord Lanyard API & microCMS Fetch Logic
+    // ==========================================
+    async function fetchDiscordLanyard() {
+      try {
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`, {
+          cache: 'no-store'
+        });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        const json = await res.json();
+        if (json && json.success && json.data) {
+          const user = json.data.discord_user;
+          STATE.discord.status = json.data.discord_status || 'offline';
+          if (user) {
+            STATE.discord.username = user.global_name || user.username || 'みかん';
+            if (user.avatar) {
+              const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
+              STATE.discord.avatarUrl = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=512`;
+            } else {
+              // New Discord username system uses (user_id >> 22) % 6, legacy uses discriminator % 5
+              const defaultIdx = (user.discriminator && user.discriminator !== '0')
+                ? Number(user.discriminator) % 5
+                : Number((BigInt(user.id) >> 22n) % 6n);
+              STATE.discord.avatarUrl = `https://cdn.discordapp.com/embed/avatars/${defaultIdx}.png`;
+            }
+          }
+        }
+      } catch (e) {
+        // Fallback to Discord default embed avatar computed from user ID
+        const defaultIdx = Number((BigInt(DISCORD_USER_ID) >> 22n) % 6n);
+        STATE.discord.avatarUrl = `https://cdn.discordapp.com/embed/avatars/${defaultIdx}.png`;
+      }
+
+      if (STATE.currentRoute === 'home') {
+        renderCurrentPage();
+      }
+    }
+
+    async function fetchMicroCMSNews() {
+      const { serviceDomain, apiKey, endpoint } = STATE.cmsConfig;
+      STATE.cmsStatus = 'loading';
+
+      const cleanDomain = serviceDomain.trim();
+      const cleanEndpoint = endpoint.trim() || 'news';
+      const url = `https://${cleanDomain}.microcms.io/api/v1/${cleanEndpoint}`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-MICROCMS-API-KEY': apiKey.trim()
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        const items = Array.isArray(data.contents) ? data.contents : (data.id ? [data] : []);
+        STATE.cmsArticles = items;
+        STATE.cmsStatus = 'success';
+      } catch (err) {
+        STATE.cmsStatus = 'error';
+      }
+
+      if (STATE.currentRoute === 'news' || STATE.currentRoute === 'home') {
+        renderCurrentPage();
+      }
+    }
+
+    // Helper to get active news list (live microCMS or silent fallback)
+    function getDisplayNews() {
+      if (STATE.cmsStatus === 'success' && STATE.cmsArticles.length > 0) {
+        return STATE.cmsArticles;
+      }
+      return FALLBACK_NEWS;
+    }
+
+    // Format ISO Date to YYYY.MM.DD
+    function formatDate(isoString) {
+      if (!isoString) return '2026.11.20';
+      try {
+        const d = new Date(isoString);
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}.${m}.${day}`;
+      } catch {
+        return isoString.slice(0, 10);
+      }
+    }
+
+    // Strip HTML tags for plain text excerpt
+    function stripHtml(html) {
+      if (!html) return '';
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || '';
+    }
+
+    // ==========================================
+    // 3. Router & Navigation
+    // ==========================================
+    const VALID_ROUTES = ['home', 'news', 'sns', 'contact', '404'];
+
+    function navigateTo(route, event) {
+      if (event) event.preventDefault();
+      const targetRoute = VALID_ROUTES.includes(route) ? route : '404';
+      STATE.currentRoute = targetRoute;
+      window.location.hash = targetRoute;
+      updateActiveNav();
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateActiveNav() {
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const r = btn.getAttribute('data-route');
+        if (r === STATE.currentRoute) {
+          btn.classList.add('bg-mikan-500', 'text-white', 'shadow-sm');
+          btn.classList.remove('text-charcoal', 'hover:bg-mikan-100');
+        } else {
+          btn.classList.remove('bg-mikan-500', 'text-white', 'shadow-sm');
+          btn.classList.add('text-charcoal', 'hover:bg-mikan-100');
+        }
+      });
+
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        const r = btn.getAttribute('data-route');
+        if (r === STATE.currentRoute) {
+          btn.classList.add('bg-mikan-100', 'text-mikan-700');
+        } else {
+          btn.classList.remove('bg-mikan-100', 'text-mikan-700');
+        }
+      });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3200);
+    }
+
+    // ==========================================
+    // 4. Page Renderers
+    // ==========================================
+    function renderCurrentPage() {
+      const container = document.getElementById('app-view');
+      let html = '';
+
+      switch (STATE.currentRoute) {
+        case 'home':
+          html = renderHomePage();
+          break;
+        case 'news':
+          html = renderNewsPage();
+          break;
+        case 'sns':
+          html = renderSnsPage();
+          break;
+        case 'contact':
+          html = renderContactPage();
+          break;
+        default:
+          html = render404Page();
+          break;
+      }
+
+      container.innerHTML = `<div class="page-transition">${html}</div>`;
+      lucide.createIcons();
+    }
+
+    // --- 4.1 HOME PAGE ---
+    function renderHomePage() {
+      const newsItems = getDisplayNews();
+      const latestNews = newsItems.slice(0, 3);
+
+      const statusConfig = {
+        online: { color: 'bg-emerald-500', label: 'Online' },
+        idle: { color: 'bg-amber-400', label: 'Idle' },
+        dnd: { color: 'bg-rose-500', label: 'Do Not Disturb' },
+        offline: { color: 'bg-neutral-400', label: 'Offline' }
+      };
+      const currentStatus = statusConfig[STATE.discord.status] || statusConfig.offline;
+
+      const defaultDiscordIdx = Number((BigInt(DISCORD_USER_ID) >> 22n) % 6n);
+      const defaultDiscordAvatar = `https://cdn.discordapp.com/embed/avatars/${defaultDiscordIdx}.png`;
+
+      return `
+        <!-- Hero Section -->
+        <section class="relative bg-white rounded-[2rem] border border-mikan-100 shadow-soft p-8 sm:p-14 overflow-hidden mb-16">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-8 sm:gap-12">
+            <!-- Left: Large Name -->
+            <div class="text-center sm:text-left">
+              <h1 class="font-display font-black text-5xl sm:text-7xl md:text-8xl text-charcoal tracking-tight">
+                みかん
+              </h1>
+            </div>
+
+            <!-- Right: Discord Avatar (Lanyard API) -->
+            <div class="flex justify-center shrink-0">
+              <div class="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center animate-float">
+                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-mikan-300/60 to-mikan-100/50 blur-2xl"></div>
+                <div class="relative w-44 h-44 sm:w-60 sm:h-60 rounded-full p-2 bg-gradient-to-br from-mikan-400 via-mikan-300 to-amber-200 shadow-xl">
+                  <div class="w-full h-full rounded-full overflow-hidden bg-neutral-100 flex items-center justify-center">
+                    ${STATE.discord.avatarUrl
+                      ? `<img src="${STATE.discord.avatarUrl}" alt="${STATE.discord.username}のアイコン" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultDiscordAvatar}';" class="w-full h-full object-cover" />`
+                      : `<div class="w-full h-full bg-neutral-200 animate-pulse flex items-center justify-center text-neutral-400">
+                           <i data-lucide="user" class="w-16 h-16"></i>
+                         </div>`
+                    }
+                  </div>
+                  <!-- Discord Status Indicator Dot -->
+                  <div title="Discord Status: ${currentStatus.label}" class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white p-1.5 shadow-md flex items-center justify-center">
+                    <span class="w-full h-full rounded-full ${currentStatus.color} block"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Latest News Excerpt -->
+        <section class="bg-white rounded-[2rem] border border-mikan-100 p-6 sm:p-10 shadow-card">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
+            <h2 class="font-display font-black text-2xl text-charcoal">最新のお知らせ</h2>
+            <button onclick="navigateTo('news')" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-600 hover:text-mikan-700">
+              お知らせ一覧へ <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div class="divide-y divide-mikan-100">
+            ${latestNews.map((item, idx) => {
+              const catName = item.category?.name || item.category || 'お知らせ';
+              return `
+                <article onclick="openNewsModal(${idx})" class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-6 cursor-pointer group">
+                  <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <div class="flex items-center gap-2.5 shrink-0">
+                      <time class="text-xs font-bold text-neutral-400 font-mono">${formatDate(item.publishedAt || item.createdAt)}</time>
+                      <span class="px-2.5 py-0.5 rounded-md bg-mikan-50 text-mikan-700 text-xs font-bold">${catName}</span>
+                    </div>
+                    <h3 class="font-bold text-sm sm:text-base text-charcoal group-hover:text-mikan-500 transition-colors line-clamp-1">
+                      ${item.title || '無題のお知らせ'}
+                    </h3>
+                  </div>
+                  <i data-lucide="chevron-right" class="hidden sm:block w-4 h-4 text-neutral-400 group-hover:text-mikan-500 group-hover:translate-x-1 transition-all shrink-0"></i>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    // --- 4.2 NEWS PAGE (microCMS Backend Integration without status/config UI) ---
+    function renderNewsPage() {
+      const displayArticles = getDisplayNews();
+
+      return `
+        <div class="space-y-8">
+          <!-- Page Header -->
+          <div class="bg-white rounded-[2rem] border border-mikan-100 p-8 sm:p-10 shadow-card">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mikan-50 text-mikan-700 text-xs font-bold mb-2">
+              <i data-lucide="rss" class="w-3.5 h-3.5"></i> News & Updates
+            </div>
+            <h1 class="font-display font-black text-3xl sm:text-4xl text-charcoal">お知らせ</h1>
+            <p class="text-neutral-600 text-sm sm:text-base mt-2">
+              「みかん」の最新の活動情報やイベント・リリースのお知らせをお届けします。
+            </p>
+          </div>
+
+          <!-- News List -->
+          <div class="space-y-4">
+            ${displayArticles.map((article, idx) => {
+              const catName = article.category?.name || article.category || 'お知らせ';
+              const excerpt = stripHtml(article.content || article.body || article.description || '記事の詳細をクリックしてご覧ください。');
+              return `
+                <article onclick="openNewsModal(${idx})" class="group cursor-pointer bg-white rounded-3xl border border-mikan-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
+                  <div class="flex flex-wrap items-center gap-3 mb-2.5">
+                    <time class="text-xs font-bold font-mono text-neutral-400">${formatDate(article.publishedAt || article.createdAt)}</time>
+                    <span class="px-3 py-0.5 rounded-full bg-mikan-50 text-mikan-700 text-xs font-bold">${catName}</span>
+                  </div>
+                  <h2 class="font-display font-bold text-lg sm:text-xl text-charcoal group-hover:text-mikan-500 transition-colors">
+                    ${article.title || '無題のお知らせ'}
+                  </h2>
+                  <p class="text-sm text-neutral-600 mt-2 line-clamp-2 leading-relaxed">
+                    ${excerpt}
+                  </p>
+                  <div class="mt-4 flex items-center text-xs font-bold text-mikan-600 group-hover:translate-x-1 transition-transform">
+                    記事全文を読む <i data-lucide="chevron-right" class="w-4 h-4 ml-0.5"></i>
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // --- 4.3 SNS PAGE ---
+    function renderSnsPage() {
+      return `
+        <div class="space-y-8">
+          <div class="bg-white rounded-[2rem] border border-mikan-100 p-8 sm:p-10 shadow-card text-center max-w-3xl mx-auto">
+            <span class="text-xs font-bold tracking-widest text-mikan-500 uppercase">Social Media</span>
+            <h1 class="font-display font-black text-3xl sm:text-4xl text-charcoal mt-1">公式SNS・コミュニティ</h1>
+            <p class="text-neutral-600 text-sm sm:text-base mt-3">
+              「みかん」の最新情報や制作の裏側、日々のつぶやきは各種SNSで発信しています。<br class="hidden sm:inline">
+              ぜひ気軽にフォローやメッセージをお寄せください！
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${SNS_DATA.map(sns => `
+              <div class="bg-white rounded-3xl border-2 ${sns.accentClass} p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
+                <div>
+                  <div class="flex items-start justify-between mb-4">
+                    <div class="w-12 h-12 rounded-2xl ${sns.bgClass} flex items-center justify-center shadow-sm">
+                      ${sns.iconSvg}
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-mikan-50 text-mikan-700 text-xs font-bold">${sns.badge}</span>
+                  </div>
+                  <h2 class="font-display font-bold text-xl text-charcoal">${sns.name}</h2>
+                  <p class="text-xs font-mono font-bold text-neutral-400 mt-0.5">${sns.handle}</p>
+                  <p class="text-sm text-neutral-600 mt-3 leading-relaxed">
+                    ${sns.description}
+                  </p>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-neutral-100 flex items-center gap-2">
+                  <a href="${sns.url}" target="_blank" rel="noopener noreferrer" class="flex-grow py-2.5 px-4 rounded-xl bg-mikan-50 hover:bg-mikan-500 text-mikan-700 hover:text-white font-bold text-xs text-center transition-colors flex items-center justify-center gap-1.5">
+                    フォロー・開く <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                  </a>
+                  <button onclick="copyHandle('${sns.handle}')" class="p-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition-colors" title="IDをコピー">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function copyHandle(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showToast(`「${text}」をクリップボードにコピーしました`);
+    }
+
+    // --- 4.5 CONTACT PAGE ---
+    function renderContactPage() {
+      return `
+        <div class="max-w-2xl mx-auto text-center py-8">
+          <div class="bg-white rounded-[2.5rem] border border-mikan-100 p-8 sm:p-14 shadow-soft space-y-6">
+            <div class="w-16 h-16 rounded-2xl bg-neutral-900 text-white flex items-center justify-center mx-auto shadow-md">
+              <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+
+            <div class="space-y-2">
+              <span class="text-xs font-bold tracking-widest text-mikan-500 uppercase">Contact</span>
+              <h1 class="font-display font-black text-2xl sm:text-3xl text-charcoal">お問い合わせ</h1>
+              <p class="text-sm sm:text-base text-neutral-600 max-w-md mx-auto leading-relaxed">
+                お問い合わせやご連絡は、X（Twitter）のDMまたはリプライにてお気軽にお寄せください。
+              </p>
+            </div>
+
+            <div class="pt-4">
+              <a href="https://x.com/mikan3nd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-sm shadow-lg transition-all">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                @mikan3nd のDMを送る
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('contact-success');
+      form.classList.add('hidden');
+      success.classList.remove('hidden');
+      showToast('お問い合わせを受け付けました（デモ送信）');
+    }
+
+    function resetContactForm() {
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('contact-success');
+      form.reset();
+      success.classList.add('hidden');
+      form.classList.remove('hidden');
+    }
+
+    // --- 4.6 404 NOT FOUND PAGE ---
+    function render404Page() {
+      return `
+        <div class="max-w-2xl mx-auto text-center py-8 sm:py-12">
+          <div class="bg-white rounded-[2.5rem] border border-mikan-100 p-8 sm:p-14 shadow-soft space-y-6">
+            <!-- Peeled Mikan Illustration SVG -->
+            <div class="w-48 h-48 mx-auto animate-float">
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Peeled Skin Base -->
+                <path d="M40 140C25 130 20 110 38 105C55 100 65 118 80 120" stroke="#FF7A00" stroke-width="12" stroke-linecap="round"/>
+                <path d="M160 140C175 130 180 110 162 105C145 100 135 118 120 120" stroke="#FF7A00" stroke-width="12" stroke-linecap="round"/>
+                <path d="M65 158C55 172 75 182 88 168" stroke="#FF9E40" stroke-width="11" stroke-linecap="round"/>
+                <path d="M135 158C145 172 125 182 112 168" stroke="#FF9E40" stroke-width="11" stroke-linecap="round"/>
+                <!-- Inner White Pith & Segments -->
+                <circle cx="100" cy="105" r="52" fill="#FFF8F0" stroke="#FFDCB5" stroke-width="4"/>
+                <circle cx="100" cy="105" r="44" fill="#FF9E40"/>
+                <!-- Segment Lines -->
+                <line x1="100" y1="61" x2="100" y2="149" stroke="#FFFDF9" stroke-width="3"/>
+                <line x1="56" y1="105" x2="144" y2="105" stroke="#FFFDF9" stroke-width="3"/>
+                <line x1="69" y1="74" x2="131" y2="136" stroke="#FFFDF9" stroke-width="3"/>
+                <line x1="131" y1="74" x2="69" y2="136" stroke="#FFFDF9" stroke-width="3"/>
+                <circle cx="100" cy="105" r="9" fill="#FFFDF9"/>
+                <!-- Question Mark -->
+                <text x="148" y="62" fill="#FF7A00" font-family="sans-serif" font-weight="900" font-size="34">?</text>
+              </svg>
+            </div>
+
+            <div class="space-y-2">
+              <span class="inline-block px-4 py-1 rounded-full bg-mikan-100 text-mikan-700 font-display font-black text-sm tracking-widest">
+                404 NOT FOUND
+              </span>
+              <h1 class="font-display font-black text-2xl sm:text-4xl text-charcoal pt-2">
+                お探しのページは、<br>皮をむかれてしまったようです…
+              </h1>
+              <p class="text-sm sm:text-base text-neutral-600 max-w-md mx-auto pt-2 leading-relaxed">
+                アクセスしようとしたページは削除されたか、URLが変更された可能性があります。こたつに戻ってトップページからお探しください。
+              </p>
+            </div>
+
+            <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
+              <button onclick="navigateTo('home')" class="px-7 py-3.5 rounded-full bg-mikan-500 hover:bg-mikan-600 text-white font-bold text-sm shadow-lg shadow-mikan-500/25 transition-all flex items-center gap-2">
+                <i data-lucide="home" class="w-4 h-4"></i>
+                Homeへ戻る
+              </button>
+              <button onclick="navigateTo('news')" class="px-6 py-3.5 rounded-full bg-mikan-50 hover:bg-mikan-100 text-mikan-700 font-bold text-sm transition-all">
+                お知らせを見る
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 5. Modals (News Detail)
+    // ==========================================
+    function openNewsModal(index) {
+      const items = getDisplayNews();
+      const article = items[index];
+      if (!article) return;
+
+      const catName = article.category?.name || article.category || 'お知らせ';
+      const bodyHtml = article.content || article.body || `<p>${article.description || '本文データがありません。'}</p>`;
+
+      const modalBody = document.getElementById('modal-body');
+      modalBody.innerHTML = `
+        <article class="space-y-5">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <time class="text-xs font-bold font-mono text-neutral-400">${formatDate(article.publishedAt || article.createdAt)}</time>
+            <span class="px-3 py-0.5 rounded-full bg-mikan-100 text-mikan-800 text-xs font-bold">${catName}</span>
+          </div>
+
+          <h2 class="font-display font-black text-2xl sm:text-3xl text-charcoal leading-snug">
+            ${article.title || '無題のお知らせ'}
+          </h2>
+
+          ${article.eyecatch?.url ? `
+            <img src="${article.eyecatch.url}" alt="${article.title}" class="w-full h-56 object-cover rounded-2xl border border-mikan-100" />
+          ` : ''}
+
+          <div class="pt-4 border-t border-mikan-100 text-sm sm:text-base text-neutral-700 cms-content">
+            ${bodyHtml}
+          </div>
+        </article>
+      `;
+      openModal();
+    }
+
+    function openModal() {
+      const modal = document.getElementById('detail-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detail-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'detail-modal') {
+        closeModal();
+      }
+    }
+
+    // ==========================================
+    // 6. Initialization
+    // ==========================================
+    window.addEventListener('hashchange', () => {
+      const hashRoute = window.location.hash.replace('#', '') || 'home';
+      STATE.currentRoute = VALID_ROUTES.includes(hashRoute) ? hashRoute : '404';
+      updateActiveNav();
+      renderCurrentPage();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialHash = window.location.hash.replace('#', '');
+      if (initialHash) {
+        STATE.currentRoute = VALID_ROUTES.includes(initialHash) ? initialHash : '404';
+      }
+      updateActiveNav();
+      renderCurrentPage();
+      // Fetch Discord avatar & status via Lanyard API
+      fetchDiscordLanyard();
+      // Fetch news articles from microCMS silently
+      fetchMicroCMSNews();
+    });
+  </script>
 </body>
 </html>
