@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8fafc">
+<meta name="description" content="mikanは現在、システムメンテナンスを実施しています。">
+<title>メンテナンス中 | mikan.</title>
+
+<style>
+:root {
+  color-scheme: light;
+  --bg:#f8fafc;
+  --card:rgba(255,255,255,.82);
+  --text:#334155;
+  --heading:#0f172a;
+  --muted:#64748b;
+  --border:#e2e8f0;
+  --accent:#f97316;
+  --accent-bg:#fff7ed;
+  --button:#0f172a;
+  --button-text:white;
+  --shadow:0 24px 80px rgba(15,23,42,.07);
+}
+:root.dark {
+  color-scheme:dark;
+  --bg:#080d19;
+  --card:rgba(17,24,39,.85);
+  --text:#cbd5e1;
+  --heading:#f8fafc;
+  --muted:#94a3b8;
+  --border:#273449;
+  --accent:#fb923c;
+  --accent-bg:rgba(249,115,22,.10);
+  --button:#f8fafc;
+  --button-text:#0f172a;
+  --shadow:0 24px 80px rgba(0,0,0,.25);
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,"Noto Sans JP",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s;
+}
+button,a {-webkit-tap-highlight-color:transparent}
+.ambient {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:-1;
+}
+.ambient span {
+  position:absolute;
+  width:350px;
+  height:350px;
+  border-radius:50%;
+  background:rgba(249,115,22,.10);
+  filter:blur(100px);
+}
+.ambient span:first-child {top:-170px;left:-100px}
+.ambient span:last-child {right:-150px;bottom:5%;background:rgba(245,158,11,.08)}
+
+header {
+  width:min(100% - 40px,1050px);
+  margin:auto;
+  padding:25px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  color:var(--heading);
+  font-size:21px;
+  font-weight:750;
+  letter-spacing:-.7px;
+}
+.logo {
+  width:37px;height:37px;
+  display:grid;place-items:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,#f97316,#fbbf24);
+  color:white;
+  box-shadow:0 5px 18px #f9731630;
+}
+.logo svg {width:22px}
+.brand-dot {color:var(--accent)}
+.theme {
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:13px;
+  color:var(--text);
+  cursor:pointer;
+  transition:.2s;
+}
+.theme:hover {transform:translateY(-2px)}
+.theme svg {width:20px}
+
+main {
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:45px 20px;
+}
+.content {
+  width:100%;
+  max-width:700px;
+  padding:52px 48px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:var(--card);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:9px 15px;
+  background:var(--accent-bg);
+  color:var(--accent);
+  border:1px solid #f9731625;
+  border-radius:100px;
+  font-size:12px;
+  font-weight:650;
+  letter-spacing:.2px;
+}
+.dot {
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 0 4px #f9731625;
+  animation:pulse 2s infinite;
+}
+.art {
+  width:120px;height:120px;
+  margin:36px auto 30px;
+  position:relative;
+  display:grid;
+  place-items:center;
+  animation:float 5s ease-in-out infinite;
+}
+.art::before {
+  content:"";
+  position:absolute;
+  inset:8px;
+  background:#f9731620;
+  filter:blur(25px);
+  border-radius:50%;
+}
+.gear {
+  width:85px;
+  color:var(--accent);
+  position:relative;
+  animation:rotate 18s linear infinite;
+}
+.infinity {
+  position:absolute;
+  right:0;bottom:0;
+  width:42px;height:42px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:var(--card);
+  border:1px solid var(--border);
+  color:#f59e0b;
+  font-size:27px;
+  box-shadow:0 5px 20px #00000012;
+}
+h1 {
+  margin:0 0 17px;
+  color:var(--heading);
+  font-size:clamp(26px,5vw,36px);
+  line-height:1.65;
+  letter-spacing:-1px;
+}
+.description {
+  max-width:510px;
+  margin:0 auto;
+  font-size:14px;
+  line-height:2.1;
+  color:var(--muted);
+}
+.notice {
+  margin:30px auto 0;
+  max-width:490px;
+  padding:16px 18px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  text-align:left;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.notice-icon {
+  color:var(--accent);
+  flex-shrink:0;
+  font-size:18px;
+}
+.notice strong {
+  display:block;
+  color:var(--heading);
+  font-size:12px;
+  margin-bottom:5px;
+}
+.notice p {
+  margin:0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+}
+.actions {
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+}
+.x-button {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:15px 24px;
+  border-radius:12px;
+  background:var(--button);
+  color:var(--button-text);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:650;
+  transition:transform .2s,opacity .2s;
+}
+.x-button:hover {transform:translateY(-3px);opacity:.88}
+.x-button svg {width:17px;height:17px}
+
+footer {
+  width:min(100% - 40px,1050px);
+  margin:auto;
+  padding:25px 0;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:var(--muted);
+  font-size:11px;
+}
+.footer-brand {font-weight:700;color:var(--heading)}
+
+@keyframes rotate {to{transform:rotate(360deg)}}
+@keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes pulse {50%{opacity:.45}}
+
+@media(max-width:600px) {
+  header {width:calc(100% - 36px);padding:19px 0}
+  main {padding:25px 16px}
+  .content {padding:39px 22px;border-radius:23px}
+  .art {margin:29px auto 24px}
+  .description {font-size:13px}
+  .notice {padding:14px}
+  .x-button {width:100%;padding:15px 10px}
+  footer {width:calc(100% - 36px);gap:10px;flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+
+<script>
+(function(){
+  let theme;
+  try {theme=localStorage.getItem("color-theme")} catch(e){}
+  if(!theme) {
+    theme=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
+  }
+  document.documentElement.classList.toggle("dark",theme==="dark");
+})();
+</script>
+</head>
+
+<body>
+<div class="ambient" aria-hidden="true">
+  <span></span><span></span>
+</div>
+
+<header>
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="13" r="7"/>
+        <path stroke-linecap="round" d="M12 6c0-2 1.5-3.5 3.5-3.5-0 2-1.5 3.5-3.5 3.5z"/>
+      </svg>
+    </div>
+    <span>mikan<span class="brand-dot">.</span></span>
+  </div>
+
+  <button class="theme" id="theme" aria-label="テーマを切り替える">
+    <svg id="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="4"/>
+      <path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>
+    </svg>
+    <svg id="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+      <path stroke-linecap="round" d="M20.35 15.35A9 9 0 018.65 3.65 9 9 0 1020.35 15.35z"/>
+    </svg>
+  </button>
+</header>
+
+<main>
+  <section class="content">
+    <div class="eyebrow">
+      <span class="dot"></span>
+      SYSTEM MAINTENANCE
+    </div>
+
+    <div class="art" aria-hidden="true">
+      <svg class="gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+      <div class="infinity">∞</div>
+    </div>
+
+    <h1>現在、mikan は<br>メンテナンス中です</h1>
+
+    <p class="description">
+      いつも mikan をご利用いただき、ありがとうございます。<br>
+      現在、システムのアップデートおよび品質向上のため、
+      メンテナンスを実施しております。<br>
+      ご不便をおかけしますが、今しばらくお待ちください。
+    </p>
+
+    <div class="notice">
+      <span class="notice-icon">ⓘ</span>
+      <div>
+        <strong>お問い合わせ・最新情報について</strong>
+        <p>メンテナンスの進捗やサービス再開のお知らせは、公式Xにてご案内いたします。</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="x-button" href="https://x.com/mikan3nd"
+        target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        公式Xで最新情報を確認
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="footer-brand">mikan.</span>
+  <span>© 2026 mikan. All rights reserved.</span>
+</footer>
+
+<script>
+const root=document.documentElement;
+const sun=document.getElementById("sun");
+const moon=document.getElementById("moon");
+
+function updateThemeIcon(){
+  const dark=root.classList.contains("dark");
+  sun.style.display=dark?"block":"none";
+  moon.style.display=dark?"none":"block";
+  document.querySelector('meta[name="theme-color"]').content=
+    dark?"#080d19":"#f8fafc";
+}
+
+document.getElementById("theme").addEventListener("click",()=>{
+  const dark=root.classList.toggle("dark");
+  try {
+    localStorage.setItem("color-theme",dark?"dark":"light");
+  } catch(e){}
+  updateThemeIcon();
+});
+
+updateThemeIcon();
+</script>
+</body>
+</html>
