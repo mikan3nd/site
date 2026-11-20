@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メンテナンス中 | mikan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans JP"', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'spin-reverse-slow': 'spin-reverse 6s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        'spin-reverse': {
+                            '0%': { transform: 'rotate(360deg)' },
+                            '100%': { transform: 'rotate(0deg)' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                            '50%': { opacity: .6, transform: 'scale(1.05)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col justify-between transition-colors duration-300 antialiased selection:bg-orange-500 selection:text-white overflow-x-hidden relative">
+
+    <!-- 背景の装飾的なアンビエントライト（シトラス＆アンバー調） -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-orange-500/10 dark:bg-orange-500/15 rounded-full blur-3xl animate-pulse-glow"></div>
+        <div class="absolute top-1/2 -right-24 w-80 h-80 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-3xl animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- ヘッダー（ロゴ＆テーマ切り替えボタン） -->
+    <header class="w-full max-w-5xl mx-auto px-6 py-6 flex justify-between items-center relative z-10">
+        <div class="flex items-center space-x-2.5">
+            <!-- ブランドロゴアイコン（mikanモチーフ） -->
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center shadow-md shadow-orange-500/25">
+                <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <circle cx="12" cy="13" r="7" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6c0-2 1.5-3.5 3.5-3.5 0 2-1.5 3.5-3.5 3.5z" />
+                </svg>
+            </div>
+            <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">mikan<span class="text-orange-500">.</span></span>
+        </div>
+
+        <!-- ダーク/ライトモード切り替えボタン -->
+        <button id="theme-toggle" type="button" aria-label="テーマ切り替え" class="p-2.5 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all shadow-sm backdrop-blur-md">
+            <!-- 太陽アイコン (ダークモード時に表示) -->
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <!-- 月アイコン (ライトモード時に表示) -->
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 py-8 relative z-10">
+        <div class="w-full max-w-2xl bg-white/80 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/80 dark:border-slate-800/80 rounded-3xl p-8 sm:p-12 shadow-2xl shadow-slate-200/50 dark:shadow-black/50 text-center transition-all duration-300">
+            
+            <!-- ライブステータスバッジ -->
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 dark:bg-orange-500/15 border border-orange-500/20 text-orange-700 dark:text-orange-400 text-xs sm:text-sm font-medium mb-8">
+                <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
+                </span>
+                <span>mikan システムメンテナンス中</span>
+            </div>
+
+            <!-- アニメーションするメンテナンス＆無限（∞）SVGイラストレーション -->
+            <div class="relative w-32 h-28 mx-auto mb-8 flex items-center justify-center animate-float">
+                <!-- 外側の発光リング -->
+                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-500/20 to-amber-400/20 blur-lg"></div>
+                
+                <!-- 大きな歯車 -->
+                <svg class="w-20 h-20 text-orange-500 dark:text-orange-400 animate-spin-slow relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+
+                <!-- インフィニティ（∞）バッジ -->
+                <div class="absolute -bottom-1 right-1 z-20 bg-white dark:bg-slate-900 border border-orange-200 dark:border-orange-500/30 rounded-full px-2.5 py-1 shadow-md flex items-center justify-center">
+                    <svg class="w-6 h-6 text-amber-500 dark:text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 見出しと説明文 -->
+            <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 leading-tight">
+                現在、mikan は<br class="hidden sm:inline">メンテナンス中です
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed max-w-lg mx-auto mb-10">
+                いつも mikan をご利用いただき誠にありがとうございます。現在、システムの抜本的なアップデートおよび品質向上のため、メンテナンスを実施しております。進捗や再開のお知らせ、お問い合わせは公式X（@mikan3nd）にて受け付けております。
+            </p>
+
+            <!-- アクションボタン（公式Xへ一本化） -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <!-- 公式X（お問い合わせ・最新情報）ボタン -->
+                <a href="https://x.com/mikan3nd" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-medium text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-lg shadow-slate-900/10 dark:shadow-white/10 active:scale-[0.98]">
+                    <svg class="w-4 h-4 mr-2.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    公式X (@mikan3nd) へ連絡・最新情報を見る
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="w-full max-w-5xl mx-auto px-6 py-6 text-center text-xs text-slate-500 dark:text-slate-500 relative z-10">
+        <p>&copy; 2026 mikan. All rights reserved.</p>
+    </footer>
+
+    <!-- インタラクション制御スクリプト -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- ダークモード / ライトモード切り替え機能 ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // 初期テーマの設定（OS設定または保存された設定を反映、デフォルトは落ち着いたダークモード寄り）
+            const initTheme = () => {
+                if (localStorage.getItem('color-theme') === 'light' || 
+                   (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                    document.documentElement.classList.remove('dark');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    lightIcon.classList.remove('hidden');
+                }
+            };
+            initTheme();
+
+            themeToggleBtn.addEventListener('click', () => {
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
+
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
