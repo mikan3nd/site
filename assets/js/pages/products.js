@@ -1,6 +1,6 @@
 function setProductCategory(cat) {
       STATE.selectedProductCategory = cat;
-      renderCurrentPage();
+      renderPage();
     }
 
     function renderProductsPage() {
@@ -100,3 +100,11 @@ function setProductCategory(cat) {
     }
 
     // --- 4.2 NEWS PAGE (microCMS Backend Integration without status/config UI) ---
+
+
+function renderPage() {
+ const root = document.getElementById("app-view");
+ if (!root) return;
+ root.innerHTML = '<div class="page-transition">' + renderProductsPage() + '</div>';
+ if (typeof lucide !== "undefined") lucide.createIcons();
+}

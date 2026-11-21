@@ -43,3 +43,11 @@ function renderNewsPage() {
     }
 
     // --- 4.3 SNS PAGE ---
+
+
+function renderPage() {
+ const root = document.getElementById("app-view");
+ if (!root) return;
+ root.innerHTML = '<div class="page-transition">' + renderNewsPage() + '</div>';
+ if (typeof lucide !== "undefined") lucide.createIcons();
+}

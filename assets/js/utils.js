@@ -56,8 +56,3 @@ function getDisplayProducts() {
       tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || '';
     }
-
-    // ==========================================
-    // 3. Router & Navigation
-    // ==========================================
-    const VALID_ROUTES = ['home', 'products', 'news', 'sns', 'contact', '404'];

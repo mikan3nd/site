@@ -53,3 +53,11 @@ function renderSnsPage() {
     }
 
     // --- 4.5 CONTACT PAGE ---
+
+
+function renderPage() {
+ const root = document.getElementById("app-view");
+ if (!root) return;
+ root.innerHTML = '<div class="page-transition">' + renderSnsPage() + '</div>';
+ if (typeof lucide !== "undefined") lucide.createIcons();
+}

@@ -59,9 +59,9 @@ function renderHomePage() {
               <span class="w-2 h-6 rounded-full bg-mikan-500"></span>
               <h2 class="font-display font-bold text-2xl text-charcoal tracking-wide">最新のお知らせ</h2>
             </div>
-            <button onclick="navigateTo('news')" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-500 hover:text-mikan-600">
+            <a data-route="news" href="./news/" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-500 hover:text-mikan-600">
               お知らせ一覧へ <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </button>
+            </a>
           </div>
 
           <div class="divide-y divide-slate-100">
@@ -88,3 +88,11 @@ function renderHomePage() {
     }
 
     // --- 4.1.5 PRODUCTS PAGE (microCMS: mikan-product) ---
+
+
+function renderPage() {
+ const root = document.getElementById("app-view");
+ if (!root) return;
+ root.innerHTML = '<div class="page-transition">' + renderHomePage() + '</div>';
+ if (typeof lucide !== "undefined") lucide.createIcons();
+}

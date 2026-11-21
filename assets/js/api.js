@@ -30,9 +30,7 @@ async function fetchDiscordLanyard() {
         STATE.discord.avatarUrl = `https://cdn.discordapp.com/embed/avatars/${defaultIdx}.png`;
       }
 
-      if (STATE.currentRoute === 'home') {
-        renderCurrentPage();
-      }
+      if (STATE.currentRoute === 'home' && typeof renderPage === 'function') renderPage();
     }
 
     async function fetchMicroCMSNews() {
@@ -63,9 +61,7 @@ async function fetchDiscordLanyard() {
         STATE.cmsStatus = 'error';
       }
 
-      if (STATE.currentRoute === 'news' || STATE.currentRoute === 'home') {
-        renderCurrentPage();
-      }
+      if ((STATE.currentRoute === 'news' || STATE.currentRoute === 'home') && typeof renderPage === 'function') renderPage();
     }
 
     async function fetchMicroCMSProducts() {
@@ -93,7 +89,5 @@ async function fetchDiscordLanyard() {
         STATE.productStatus = 'error';
       }
 
-      if (STATE.currentRoute === 'products') {
-        renderCurrentPage();
-      }
+      if (STATE.currentRoute === 'products' && typeof renderPage === 'function') renderPage();
     }

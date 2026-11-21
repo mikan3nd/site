@@ -43,3 +43,11 @@ function renderContactPage() {
     }
 
     // --- 4.6 404 NOT FOUND PAGE ---
+
+
+function renderPage() {
+ const root = document.getElementById("app-view");
+ if (!root) return;
+ root.innerHTML = '<div class="page-transition">' + renderContactPage() + '</div>';
+ if (typeof lucide !== "undefined") lucide.createIcons();
+}
