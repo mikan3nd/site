@@ -233,3 +233,137 @@ footer a:hover { color: var(--navy); }
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Responsive layout refinements: portrait, landscape and compact devices */
+@media (max-width: 767px) {
+  main#app-view { width: min(100% - 28px, 1080px); }
+  body[data-page="home"] #app-view > .page-transition > section:first-child {
+    min-height: 0;
+    margin-bottom: 2rem;
+  }
+  body[data-page="home"] #app-view > .page-transition > section:first-child > div.relative {
+    padding: clamp(26px, 7vw, 42px) clamp(18px, 5vw, 28px) clamp(34px, 8vw, 48px);
+    gap: clamp(22px, 6vw, 34px);
+  }
+  body[data-page="home"] #app-view h1 {
+    font-size: clamp(2.65rem, 11vw, 4.25rem) !important;
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+  body[data-page="home"] #app-view .animate-float {
+    width: clamp(150px, 54vw, 218px);
+    height: clamp(150px, 54vw, 218px);
+    padding: clamp(10px, 3vw, 16px);
+    border-radius: clamp(24px, 7vw, 34px);
+  }
+  body[data-page="home"] #app-view .animate-float > div:first-child {
+    border-radius: clamp(17px, 5vw, 26px);
+  }
+  body[data-page="home"] #app-view section:nth-child(2) {
+    padding: clamp(20px, 5vw, 30px);
+  }
+  #app-view .grid { min-width: 0; }
+  #app-view img { max-width: 100%; }
+}
+@media (max-width: 767px) and (orientation: landscape) {
+  .site-header > div:first-child {
+    height: 54px;
+    padding-inline: max(16px, env(safe-area-inset-left));
+  }
+  .site-header [data-route="home"]:first-child > span:first-child {
+    width: 34px;
+    height: 34px;
+  }
+  #mobile-menu-btn {
+    width: 38px;
+    height: 38px;
+  }
+  main#app-view {
+    width: min(100% - 32px, 1080px);
+    padding-top: 16px;
+    padding-bottom: 28px;
+  }
+  body[data-page="home"] #app-view > .page-transition > section:first-child {
+    min-height: clamp(190px, 67svh, 330px);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: stretch;
+  }
+  body[data-page="home"] #app-view > .page-transition > section:first-child > div.relative {
+    width: 100%;
+    min-height: inherit;
+    padding: clamp(14px, 3.5vh, 26px) clamp(20px, 5vw, 44px) clamp(24px, 5vh, 36px);
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(12px, 3vw, 28px);
+  }
+  body[data-page="home"] #app-view > .page-transition > section:first-child > div.relative > div:first-child {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 52%;
+  }
+  body[data-page="home"] #app-view > .page-transition > section:first-child > div.relative > div:first-child > div {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+  }
+  body[data-page="home"] #app-view h1 {
+    font-size: clamp(2.1rem, 7.4vw, 3.8rem) !important;
+    line-height: 1.08;
+    letter-spacing: .02em;
+  }
+  body[data-page="home"] #app-view h1 + span {
+    font-size: clamp(1rem, 3.1vw, 1.55rem);
+  }
+  body[data-page="home"] #app-view .animate-float {
+    flex: 0 0 auto;
+    width: clamp(112px, 27vw, 176px);
+    height: clamp(112px, 27vw, 176px);
+    padding: clamp(8px, 1.8vw, 12px);
+    border-radius: 24px;
+  }
+  body[data-page="home"] #app-view .animate-float > div:first-child {
+    border-radius: 17px;
+  }
+  body[data-page="home"] #app-view .animate-float > div:first-child img {
+    object-fit: cover;
+  }
+  body[data-page="home"] #app-view .animate-float + div {
+    transform: scale(.78);
+    transform-origin: left bottom;
+  }
+  body[data-page="home"] #app-view section:first-child > div.absolute {
+    height: clamp(26px, 10vh, 48px);
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  main#app-view { width: min(100% - 48px, 1080px); }
+  body[data-page="home"] #app-view > .page-transition > section:first-child > div.relative {
+    gap: clamp(24px, 4vw, 44px);
+    padding-inline: clamp(28px, 5vw, 48px);
+  }
+  body[data-page="home"] #app-view h1 {
+    font-size: clamp(3.4rem, 7vw, 5.5rem);
+  }
+  body[data-page="home"] #app-view .animate-float {
+    width: clamp(220px, 30vw, 290px);
+    height: clamp(220px, 30vw, 290px);
+  }
+}
+@media (max-height: 430px) and (orientation: landscape) {
+  body[data-page="home"] #app-view > .page-transition > section:first-child {
+    min-height: 0;
+  }
+  body[data-page="home"] #app-view > .page-transition > section:first-child > div.relative {
+    padding-block: 12px;
+  }
+  body[data-page="home"] #app-view .animate-float {
+    width: min(25vw, 150px);
+    height: min(25vw, 150px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-float { animation: none !important; }
+}
