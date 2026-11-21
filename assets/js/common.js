@@ -53,6 +53,30 @@ async function loadSharedLayout() {
   main.insertAdjacentHTML("afterend", footer);
   document.body.insertAdjacentHTML("beforeend", overlays);
   updateActiveNav();
+  installBackToTop();
+}
+
+function installBackToTop() {
+  if (document.getElementById("back-to-top")) return;
+  const button = document.createElement("button");
+  button.id = "back-to-top";
+  button.type = "button";
+  button.setAttribute("aria-label", "ページの先頭へ戻る");
+  button.setAttribute("title", "ページの先頭へ戻る");
+  button.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/><path d="M12 21V9"/></svg>';
+  document.body.appendChild(button);
+
+  const updateVisibility = () => {
+    button.classList.toggle("is-visible", window.scrollY > 360);
+  };
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  updateVisibility();
+  button.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+    });
+  });
 }
 window.addEventListener("DOMContentLoaded", async () => {
   try {
