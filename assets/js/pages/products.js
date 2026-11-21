@@ -7,6 +7,7 @@ function setProductCategory(cat) {
       const allProducts = getDisplayProducts();
       const categories = ['すべて', ...new Set(allProducts.map(p => extractCategoryName(p)).filter(Boolean))];
       const currentCat = categories.includes(STATE.selectedProductCategory) ? STATE.selectedProductCategory : 'すべて';
+      const productMessage = STATE.productStatus === 'loading' || STATE.productStatus === 'idle' ? '<div class="col-span-full rounded-2xl border border-slate-100 bg-white p-10 text-center text-slate-500">プロダクトを読み込んでいます…</div>' : STATE.productStatus === 'error' ? '<div class="col-span-full rounded-2xl border border-slate-100 bg-white p-10 text-center text-slate-500">プロダクトを読み込めませんでした。時間をおいて再度お試しください。</div>' : '<div class="col-span-full rounded-2xl border border-slate-100 bg-white p-10 text-center"><p class="font-bold text-charcoal">現在掲載中のプロダクトはありません</p><p class="mt-2 text-sm text-slate-500">新しい制作物を公開した際に、こちらに掲載します。</p></div>';
 
       const filteredProducts = currentCat === 'すべて'
         ? allProducts
@@ -47,7 +48,7 @@ function setProductCategory(cat) {
 
           <!-- Products Grid (Category -> Thumbnail -> Title -> Description) -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            ${filteredProducts.map((item) => {
+            ${filteredProducts.length ? filteredProducts.map((item) => {
               const originalIndex = allProducts.indexOf(item);
               const catName = escapeHtml(extractCategoryName(item));
               const thumbUrl = extractThumbnailUrl(item);
@@ -93,7 +94,7 @@ function setProductCategory(cat) {
                   </div>
                 </article>
               `;
-            }).join('')}
+            }).join('') : productMessage}
           </div>
         </div>
       `;

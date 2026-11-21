@@ -26,31 +26,7 @@
       }
     };
 
-    // Fallback Products (Displayed if microCMS endpoint has no entries or is unreachable)
-    const FALLBACK_PRODUCTS = [
-      {
-        id: 'prod-1',
-        title: 'みかん公式ホームページ',
-        category: { name: 'Web' },
-        description: '洗練されたホワイト＆ネイビーの配色を採用した公式ポートフォリオ＆お知らせサイト。microCMSやLanyard APIと連携しています。',
-        thumbnail: { url: 'https://placehold.co/800x450/E5E9F8/1E2B58?text=Mikan+Website' },
-        url: '#home'
-      },
-      {
-        id: 'prod-2',
-        title: 'シンプルタスクタイマー',
-        category: { name: 'アプリ' },
-        description: '集中と休憩のリズムをやさしくサポートするポモドーロタイマーWebアプリ。直感的な操作と落ち着いたUIが特徴です。',
-        thumbnail: { url: 'https://placehold.co/800x450/F4F6FC/1E2B58?text=Focus+Timer' }
-      },
-      {
-        id: 'prod-3',
-        title: 'ミニマルUIアイコンセット',
-        category: { name: 'デザイン' },
-        description: '丸みのある角と均一なストロークで設計された、個人開発・Webサイト向けのカスタムSVGアイコンコレクション。',
-        thumbnail: { url: 'https://placehold.co/800x450/C7D2FE/1E2B58?text=Minimal+UI+Icons' }
-      }
-    ];
+    // Products are sourced only from microCMS. No demo products are displayed.
 
     // Fallback News Articles (Displayed silently if microCMS endpoint has no entries or is unreachable)
     const FALLBACK_NEWS = [

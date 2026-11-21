@@ -63,7 +63,7 @@ function renderHomePage() {
                   <i data-lucide="chevron-right" class="hidden sm:block w-4 h-4 text-slate-400 group-hover:text-mikan-500 group-hover:translate-x-1 transition-all shrink-0"></i>
                 </article>
               `;
-            }).join('')}
+            }).join('') : (STATE.productStatus === 'loading' || STATE.productStatus === 'idle' ? '<div class="col-span-full py-8 text-center text-sm text-slate-500">プロダクトを読み込んでいます…</div>' : STATE.productStatus === 'error' ? '<div class="col-span-full py-8 text-center text-sm text-slate-500">プロダクトを読み込めませんでした。</div>' : '<div class="col-span-full py-8 text-center text-sm text-slate-500">現在掲載中のプロダクトはありません。</div>')}
           </div>
         </section>
 
@@ -79,7 +79,7 @@ function renderHomePage() {
             <a data-route="products" href="./products/" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-500 hover:text-mikan-600">すべてのプロダクト <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            ${featuredProducts.map(item => {
+            ${featuredProducts.length ? featuredProducts.map(item => {
               const originalIndex = allProducts.indexOf(item);
               const catName = extractCategoryName(item);
               const thumbUrl = extractThumbnailUrl(item);

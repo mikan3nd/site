@@ -15,10 +15,7 @@ function escapeHtml(value) {
     }
 
     function getDisplayProducts() {
-      if (STATE.productStatus === 'success' && STATE.productItems.length > 0) {
-        return STATE.productItems;
-      }
-      return FALLBACK_PRODUCTS;
+      return STATE.productStatus === 'success' ? STATE.productItems : [];
     }
 
     function extractCategoryName(item) {
