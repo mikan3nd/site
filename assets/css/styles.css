@@ -1,0 +1,55 @@
+body {
+      background-color: #FFFFFF;
+      color: #1A202C;
+      overflow-x: hidden;
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .page-transition {
+      animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+    /* Brush stroke underline matching reference aesthetic */
+    .brush-blue {
+      background: linear-gradient(transparent 52%, #B4C3F5 52%, #B4C3F5 88%, transparent 88%);
+      padding: 0 6px;
+    }
+    .brush-lavender {
+      background: linear-gradient(transparent 52%, #C7B8EA 52%, #C7B8EA 88%, transparent 88%);
+      padding: 0 6px;
+    }
+    .vertical-scroll-text {
+      writing-mode: vertical-rl;
+      letter-spacing: 0.25em;
+    }
+    /* Rich text content styling from microCMS */
+    .cms-content h1, .cms-content h2, .cms-content h3 {
+      font-weight: 700;
+      margin-top: 1.25em;
+      margin-bottom: 0.5em;
+      color: #1A202C;
+    }
+    .cms-content h2 { font-size: 1.25rem; border-left: 4px solid #1E2B58; padding-left: 0.75rem; }
+    .cms-content p { margin-bottom: 1em; line-height: 1.8; }
+    .cms-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1em; }
+    .cms-content a { color: #1E2B58; text-decoration: underline; }
+    .cms-content img { border-radius: 1rem; margin: 1rem 0; max-width: 100%; height: auto; }
