@@ -1,27 +1,30 @@
-<header class="site-header sticky top-0 z-40 glass-nav border-b border-slate-100">
-  <div class="max-w-7xl mx-auto pl-4 sm:pl-8 h-20 flex items-center justify-between">
-    <a data-route="home" href="./" class="flex items-center gap-3.5 group">
-      <span class="w-10 h-10 rounded-full bg-gradient-to-br from-mikan-500 via-mikan-400 to-accent-blue flex items-center justify-center shadow-sm text-white font-black">M</span>
-      <span class="flex items-baseline gap-2.5"><span class="font-display font-bold text-xl sm:text-2xl tracking-wider text-charcoal">みかん</span><span class="hidden sm:inline text-[11px] font-medium tracking-widest text-slate-400 uppercase">Mikan Official</span></span>
+<header class="site-header">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <a data-route="home" href="./" class="flex items-center gap-3 group" aria-label="みかん ホーム">
+      <span class="flex items-center justify-center text-white font-black text-lg">M</span>
+      <span class="flex flex-col leading-tight">
+        <span class="font-display font-bold text-xl tracking-wide text-charcoal">みかん</span>
+        <span class="hidden sm:block text-[10px] font-semibold tracking-[.18em] text-slate-400 uppercase mt-1">Mikan Official Website</span>
+      </span>
     </a>
-    <nav class="hidden md:flex items-center gap-2 lg:gap-5 pr-6" aria-label="メインナビゲーション">
-      <a data-route="home" href="./" class="nav-btn px-3 py-2 text-sm font-bold">Home</a>
-      <a data-route="products" href="./products/" class="nav-btn px-3 py-2 text-sm font-bold">プロダクト</a>
-      <a data-route="news" href="./news/" class="nav-btn px-3 py-2 text-sm font-bold">お知らせ</a>
-      <a data-route="sns" href="./sns/" class="nav-btn px-3 py-2 text-sm font-bold">SNS</a>
-      <a data-route="contact" href="./contact/" class="nav-btn px-3 py-2 text-sm font-bold">お問い合わせ</a>
+    <nav class="hidden md:flex items-center pr-1" aria-label="メインナビゲーション">
+      <a data-route="home" href="./" class="nav-btn">Home</a>
+      <a data-route="products" href="./products/" class="nav-btn">プロダクト</a>
+      <a data-route="news" href="./news/" class="nav-btn">お知らせ</a>
+      <a data-route="sns" href="./sns/" class="nav-btn">SNS</a>
+      <a data-route="contact" href="./contact/" class="nav-btn">お問い合わせ</a>
     </nav>
-    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="w-20 h-20 bg-mikan-500 hover:bg-mikan-600 text-white flex flex-col items-center justify-center" aria-label="メニューを開く" aria-expanded="false">
-      <span class="space-y-1.5"><span class="block w-6 h-0.5 bg-white"></span><span class="block w-6 h-0.5 bg-white"></span><span class="block w-4 h-0.5 bg-white ml-auto"></span></span>
+    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="メニューを開く" aria-controls="mobile-menu" aria-expanded="false">
+      <span aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
   </div>
-  <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white px-6 py-6 shadow-xl">
-    <nav class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3" aria-label="モバイルナビゲーション">
-      <a data-route="home" href="./" class="mobile-nav-btn px-4 py-3.5 rounded-xl font-bold text-sm border border-slate-100">Home <i data-lucide="chevron-right" class="inline w-4 h-4"></i></a>
-      <a data-route="products" href="./products/" class="mobile-nav-btn px-4 py-3.5 rounded-xl font-bold text-sm border border-slate-100">プロダクト <i data-lucide="chevron-right" class="inline w-4 h-4"></i></a>
-      <a data-route="news" href="./news/" class="mobile-nav-btn px-4 py-3.5 rounded-xl font-bold text-sm border border-slate-100">お知らせ <i data-lucide="chevron-right" class="inline w-4 h-4"></i></a>
-      <a data-route="sns" href="./sns/" class="mobile-nav-btn px-4 py-3.5 rounded-xl font-bold text-sm border border-slate-100">SNS <i data-lucide="chevron-right" class="inline w-4 h-4"></i></a>
-      <a data-route="contact" href="./contact/" class="mobile-nav-btn px-4 py-3.5 rounded-xl font-bold text-sm border border-slate-100">お問い合わせ <i data-lucide="chevron-right" class="inline w-4 h-4"></i></a>
+  <div id="mobile-menu" class="hidden border-t">
+    <nav class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-2" aria-label="モバイルナビゲーション">
+      <a data-route="home" href="./" class="mobile-nav-btn px-4 py-3.5 font-bold text-sm border">Home <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+      <a data-route="products" href="./products/" class="mobile-nav-btn px-4 py-3.5 font-bold text-sm border">プロダクト <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+      <a data-route="news" href="./news/" class="mobile-nav-btn px-4 py-3.5 font-bold text-sm border">お知らせ <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+      <a data-route="sns" href="./sns/" class="mobile-nav-btn px-4 py-3.5 font-bold text-sm border">SNS <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+      <a data-route="contact" href="./contact/" class="mobile-nav-btn px-4 py-3.5 font-bold text-sm border">お問い合わせ <i data-lucide="chevron-right" class="w-4 h-4"></i></a>
     </nav>
   </div>
 </header>
