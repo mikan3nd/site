@@ -1,4 +1,4 @@
-import { getContent, plainText, categoryName, escapeHtml, safeId } from "../../_lib/content.js";
+import { getContent, plainText, categoryName, escapeHtml, safeId } from "../_lib/content.js";
 
 const xml = value => escapeHtml(value).replace(/&#39;/g, "&apos;");
 export async function onRequest(context) {
