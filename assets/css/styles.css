@@ -436,3 +436,12 @@ body[data-page="404"] main#app-view {
 /* 404 assistance link */
 .not-found-help { margin: 24px 0 0; color: var(--muted); font-size: .85rem; }
 .not-found-help a { color: #536da9; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+
+/* Item-specific share menu */
+.share-panel { margin-top: 1.5rem; padding: 1rem; border: 1px solid var(--line); border-radius: 18px; background: #f8f9fd; }
+.share-panel-heading { display:flex; align-items:center; gap:.5rem; margin-bottom:.8rem; color:var(--ink); font-size:.88rem; font-weight:800; }
+.share-actions { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.5rem; }
+.share-actions button, .share-actions a { display:flex; min-width:0; min-height:62px; flex-direction:column; align-items:center; justify-content:center; gap:.35rem; padding:.55rem .25rem; border:1px solid #e5e9f4; border-radius:13px; background:#fff; color:#53618a; font-size:.72rem; font-weight:700; text-decoration:none; cursor:pointer; }
+.share-actions button:hover, .share-actions a:hover { border-color:#aebce5; background:#f1f4ff; color:var(--navy); }
+@media (max-width:420px) { .share-actions { grid-template-columns:repeat(2,minmax(0,1fr)); } .share-actions button, .share-actions a { min-height:54px; flex-direction:row; font-size:.8rem; } }

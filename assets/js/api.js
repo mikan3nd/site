@@ -62,6 +62,7 @@ async function fetchDiscordLanyard() {
       }
 
       if ((STATE.currentRoute === 'news' || STATE.currentRoute === 'home') && typeof renderPage === 'function') renderPage();
+      if (STATE.currentRoute === 'news' && typeof openSharedItemFromUrl === 'function') openSharedItemFromUrl('news');
     }
 
     async function fetchMicroCMSProducts() {
@@ -90,5 +91,6 @@ async function fetchDiscordLanyard() {
       }
 
       if ((STATE.currentRoute === 'products' || STATE.currentRoute === 'home') && typeof renderPage === 'function') renderPage();
+      if (STATE.currentRoute === 'products' && typeof openSharedItemFromUrl === 'function') openSharedItemFromUrl('products');
     }
 

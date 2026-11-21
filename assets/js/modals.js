@@ -1,4 +1,65 @@
-function openProductModal(index) {
+function createShareMenu(type, item) {
+      const title = item.title || item.name || 'みかん';
+      const id = String(item.id || '');
+      const url = new URL(routeHref(type === 'news' ? 'news' : 'products'), window.location.href);
+      if (id) url.searchParams.set('id', id);
+      const shareUrl = url.href;
+      return `
+        <section class="share-panel" aria-label="共有メニュー">
+          <div class="share-panel-heading"><i data-lucide="share-2" class="w-4 h-4"></i><span>この記事を共有</span></div>
+          <div class="share-actions">
+            <button type="button" onclick="shareItemAction(this, 'native')" data-share-title="${escapeHtml(title)}" data-share-url="${escapeHtml(shareUrl)}"><i data-lucide="share" class="w-4 h-4"></i><span>共有する</span></button>
+            <button type="button" onclick="shareItemAction(this, 'copy')" data-share-title="${escapeHtml(title)}" data-share-url="${escapeHtml(shareUrl)}"><i data-lucide="copy" class="w-4 h-4"></i><span>リンクをコピー</span></button>
+            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="twitter" class="w-4 h-4"></i><span>X</span></a>
+            <a href="https://line.me/R/msg/text/?${encodeURIComponent(title + ' ' + shareUrl)}" target="_blank" rel="noopener noreferrer"><i data-lucide="message-circle" class="w-4 h-4"></i><span>LINE</span></a>
+          </div>
+        </section>
+      `;
+    }
+
+    async function shareItemAction(button, action) {
+      const title = button.dataset.shareTitle || 'みかん';
+      const url = button.dataset.shareUrl || window.location.href;
+      if (action === 'native') {
+        if (navigator.share) {
+          try { await navigator.share({ title, text: title, url }); }
+          catch (error) { if (error.name !== 'AbortError') showToast('共有を開始できませんでした'); }
+        } else {
+          await copyShareUrl(url);
+        }
+      } else if (action === 'copy') {
+        await copyShareUrl(url);
+      }
+    }
+
+    async function copyShareUrl(url) {
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('リンクをコピーしました');
+      } catch {
+        const field = document.createElement('textarea');
+        field.value = url;
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        showToast(copied ? 'リンクをコピーしました' : 'コピーできませんでした');
+      }
+    }
+
+    function openSharedItemFromUrl(type) {
+      const id = new URLSearchParams(window.location.search).get('id');
+      if (!id) return;
+      const items = type === 'news' ? getDisplayNews() : getDisplayProducts();
+      const index = items.findIndex(item => String(item.id || '') === id);
+      if (index < 0) return;
+      if (type === 'news') openNewsModal(index);
+      else openProductModal(index);
+    }
+
+    function openProductModal(index) {
       const items = getDisplayProducts();
       const item = items[index];
       if (!item) return;
@@ -36,6 +97,7 @@ function openProductModal(index) {
               </a>
             </div>
           ` : ''}
+          ${createShareMenu('products', item)}
         </article>
       `;
       openModal();
@@ -68,6 +130,7 @@ function openProductModal(index) {
           <div class="pt-4 border-t border-mikan-100 text-sm sm:text-base text-neutral-700 cms-content">
             ${bodyHtml}
           </div>
+          ${createShareMenu('news', article)}
         </article>
       `;
       openModal();
