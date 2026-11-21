@@ -1,9 +1,9 @@
 function createShareMenu(type, item) {
       const title = item.title || item.name || 'みかん';
       const id = String(item.id || '');
-      const url = new URL(routeHref(type === 'news' ? 'news' : 'products'), window.location.href);
-      if (id) url.searchParams.set('id', id);
-      const shareUrl = url.href;
+      const shareUrl = id
+        ? new URL(`/share/${type}/${encodeURIComponent(id)}/`, window.location.origin).href
+        : new URL(routeHref(type === 'news' ? 'news' : 'products'), window.location.href).href;
       return `
         <section class="share-panel" aria-label="共有メニュー">
           <div class="share-panel-heading"><i data-lucide="share-2" class="w-4 h-4"></i><span>この記事を共有</span></div>
