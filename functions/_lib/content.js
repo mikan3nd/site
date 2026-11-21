@@ -8,14 +8,13 @@ async function cmsFetch(url, key) {
 }
 
 async function findInCollection(config, id) {
-  const base = \`https://\${config.domain}.microcms.io/api/v1/\${config.endpoint}\`;
+  const base = "https://" + config.domain + ".microcms.io/api/v1/" + config.endpoint;
   const limit = 100;
   let offset = 0;
   let totalCount = Infinity;
-
   while (offset < totalCount && offset < 1000) {
-    const response = await cmsFetch(\`\${base}?limit=\${limit}&offset=\${offset}\`, config.key);
-    if (!response.ok) throw new Error(\`microCMS collection returned \${response.status}\`);
+    const response = await cmsFetch(base + "?limit=" + limit + "&offset=" + offset, config.key);
+    if (!response.ok) throw new Error("microCMS collection returned " + response.status);
     const data = await response.json();
     const items = Array.isArray(data.contents) ? data.contents : [];
     const found = items.find(item => item && item.id === id);
@@ -30,17 +29,13 @@ async function findInCollection(config, id) {
 export async function getContent(type, id) {
   const config = CMS[type];
   if (!config || !id || id.length > 128) return null;
-
-  const endpoint = \`https://\${config.domain}.microcms.io/api/v1/\${config.endpoint}/\${encodeURIComponent(id)}\`;
+  const endpoint = "https://" + config.domain + ".microcms.io/api/v1/" + config.endpoint + "/" + encodeURIComponent(id);
   try {
     const response = await cmsFetch(endpoint, config.key);
     if (response.ok) return await response.json();
   } catch (error) {
-    // Fall back to the collection endpoint below.
+    // Try the collection endpoint below.
   }
-
-  // Resolve the item from the live collection if the detail endpoint is unavailable.
-  // Deleted content is still absent from the collection and therefore returns 404.
   return findInCollection(config, id);
 }
 
@@ -59,9 +54,7 @@ export function plainText(value) {
 }
 
 export function imageUrl(item, type) {
-  const value = type === "news"
-    ? (item.eyecatch || item.thumbnail || item.image)
-    : (item.thumbnail || item.eyecatch || item.image || item.cover);
+  const value = type === "news" ? (item.eyecatch || item.thumbnail || item.image) : (item.thumbnail || item.eyecatch || item.image || item.cover);
   const url = typeof value === "string" ? value : value?.url;
   return typeof url === "string" && /^https:\/\//i.test(url) ? url : "";
 }
