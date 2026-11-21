@@ -23,9 +23,7 @@
         avatarUrl: null,
         status: 'offline', // 'online' | 'idle' | 'dnd' | 'offline'
         username: 'みかん'
-      },
-      githubUpdates: [],
-      githubUpdateStatus: 'idle'
+      }
     };
 
     // Fallback Products (Displayed if microCMS endpoint has no entries or is unreachable)

@@ -115,9 +115,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       fetchDiscordLanyard();
       fetchMicroCMSNews();
       fetchMicroCMSProducts();
-      fetchGitHubUpdates();
-    } else if (CURRENT_PAGE === "updates") {
-      fetchGitHubUpdates();
+
     } else if (CURRENT_PAGE === "news") {
       fetchMicroCMSNews();
     } else if (CURRENT_PAGE === "products") {
