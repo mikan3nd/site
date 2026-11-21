@@ -10,6 +10,13 @@ export async function onRequest(context) {
   const html = `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f5f6fa"><title>${label} | みかん</title>
+<meta name="description" content="みかん公式サイトの${label}ページです。">
+<meta property="og:type" content="article"><meta property="og:site_name" content="みかん">
+<meta property="og:title" content="${label} | みかん"><meta property="og:description" content="みかん公式サイトの${label}ページです。">
+<meta property="og:url" content="${url.origin}/share/${type}/${encodeURIComponent(id)}/">
+<meta property="og:image" content="${url.origin}/og/${type}/${encodeURIComponent(id)}.svg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${label} | みかん"><meta name="twitter:image" content="${url.origin}/og/${type}/${encodeURIComponent(id)}.svg">
 <link rel="canonical" href="${url.origin}/share/${type}/${encodeURIComponent(id)}/">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#20283f;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;line-height:1.85}
