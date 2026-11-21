@@ -7,6 +7,8 @@
 - `news/index.html`: News
 - `sns/index.html`: Social links
 - `contact/index.html`: Contact
+- `privacy/index.html`: Privacy policy
+- `terms/index.html`: Terms of use
 - `404.html`: Not found page
 
 ## Shared components
