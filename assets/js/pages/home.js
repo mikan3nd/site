@@ -101,7 +101,7 @@ function renderHomePage() {
                   </div>
                 </article>
               `;
-            }).join('')}
+            }).join('') : (STATE.productStatus === 'loading' || STATE.productStatus === 'idle' ? '<div class="col-span-full py-8 text-center text-sm text-slate-500">プロダクトを読み込んでいます…</div>' : STATE.productStatus === 'error' ? '<div class="col-span-full py-8 text-center text-sm text-slate-500">プロダクトを読み込めませんでした。</div>' : '<div class="col-span-full py-8 text-center text-sm text-slate-500">現在掲載中のプロダクトはありません。</div>')}
           </div>
         </section>
 
