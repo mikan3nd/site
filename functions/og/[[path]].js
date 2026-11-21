@@ -24,10 +24,10 @@ async function getContent(type, id) {
   return null;
 }
 function plainText(value) {
-  return String(value || "").replace(/<\\/(p|div|h[1-6]|li|br|blockquote)>/gi, " ")
+  return String(value || "").replace(/<\/(p|div|h[1-6]|li|br|blockquote)>/gi, " ")
     .replace(/<[^>]*>/g, " ").replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&")
     .replace(/&lt;/gi, "<").replace(/&gt;/gi, ">").replace(/&quot;/gi, '"')
-    .replace(/&#39;/gi, "'").replace(/\\s+/g, " ").trim();
+    .replace(/&#39;/gi, "'").replace(/\s+/g, " ").trim();
 }
 function categoryName(item) {
   const value = item.category;
