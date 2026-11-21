@@ -89,5 +89,5 @@ async function fetchDiscordLanyard() {
         STATE.productStatus = 'error';
       }
 
-      if (STATE.currentRoute === 'products' && typeof renderPage === 'function') renderPage();
+      if ((STATE.currentRoute === 'products' || STATE.currentRoute === 'home') && typeof renderPage === 'function') renderPage();
     }
