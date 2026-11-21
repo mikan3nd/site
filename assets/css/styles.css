@@ -432,3 +432,7 @@ body[data-page="404"] main#app-view {
   .legal-hero, .legal-content { border-radius: 20px; }
   .legal-content { font-size: .9rem; }
 }
+
+/* 404 assistance link */
+.not-found-help { margin: 24px 0 0; color: var(--muted); font-size: .85rem; }
+.not-found-help a { color: #536da9; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
