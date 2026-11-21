@@ -16,11 +16,11 @@ function renderNewsPage() {
 
           <!-- News List -->
           <div class="space-y-4">
-            ${displayArticles.map((article, idx) => {
+            ${displayArticles.map((article) => {
               const catName = escapeHtml(article.category?.name || article.category || 'お知らせ');
               const excerpt = stripHtml(article.content || article.body || article.description || '記事の詳細をクリックしてご覧ください。');
               return `
-                <article role="button" tabindex="0" onclick="openNewsModal(${idx})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
+                <a href="/share/news/${encodeURIComponent(article.id || '')}/" class="block group cursor-pointer bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
                   <div class="flex flex-wrap items-center gap-3 mb-2.5">
                     <time class="text-xs font-bold font-mono text-slate-400">${formatDate(article.publishedAt || article.createdAt)}</time>
                     <span class="px-3 py-0.5 rounded bg-mikan-50 text-mikan-500 text-xs font-bold">${catName}</span>
@@ -34,7 +34,7 @@ function renderNewsPage() {
                   <div class="mt-4 flex items-center text-xs font-bold text-mikan-500 group-hover:translate-x-1 transition-transform">
                     記事全文を読む <i data-lucide="chevron-right" class="w-4 h-4 ml-0.5"></i>
                   </div>
-                </article>
+                </a>
               `;
             }).join('')}
           </div>
