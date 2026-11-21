@@ -38,7 +38,7 @@ function setProductCategory(cat) {
                         ? 'bg-mikan-500 text-white shadow-sm'
                         : 'bg-mikan-50 text-mikan-500 hover:bg-mikan-100'
                     }">
-                    ${cat}
+                    ${escapeHtml(cat)}
                   </button>
                 `;
               }).join('')}

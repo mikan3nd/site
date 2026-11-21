@@ -58,7 +58,7 @@ function openProductModal(index) {
           </div>
 
           <h2 class="font-display font-black text-2xl sm:text-3xl text-charcoal leading-snug">
-            ${article.title || '無題のお知らせ'}
+            ${escapeHtml(article.title || '無題のお知らせ')}
           </h2>
 
           ${article.eyecatch?.url ? `
