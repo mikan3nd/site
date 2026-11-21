@@ -2,7 +2,8 @@
 
 ## Pages
 - `index.html`: Home
-- `products/index.html`: Products
+- `about/index.html`: About
+- `products/index.html`: Products (individual product detail URLs are managed in microCMS)
 - `news/index.html`: News
 - `sns/index.html`: Social links
 - `contact/index.html`: Contact
@@ -22,4 +23,4 @@
 - `assets/js/modals.js`: detail modal
 - `assets/js/pages/`: page-specific rendering logic
 
-Each page has its own HTML document and loads only its own page renderer. Navigation uses ordinary links between documents. Shared header/footer are loaded from `components/` so they can be maintained once.
+Each page has its own HTML document and loads its own page renderer. Shared header/footer are maintained once.
