@@ -91,3 +91,34 @@ async function fetchDiscordLanyard() {
 
       if ((STATE.currentRoute === 'products' || STATE.currentRoute === 'home') && typeof renderPage === 'function') renderPage();
     }
+
+
+/* Public GitHub commit history used as the site's update log. */
+async function fetchGitHubUpdates() {
+  STATE.githubUpdateStatus = 'loading';
+  try {
+    const response = await fetch(
+      'https://api.github.com/repos/mikan3nd/site/commits?per_page=8',
+      { headers: { Accept: 'application/vnd.github+json' } }
+    );
+    if (!response.ok) throw new Error('GitHub API: ' + response.status);
+    const commits = await response.json();
+    STATE.githubUpdates = Array.isArray(commits) ? commits : [];
+    STATE.githubUpdateStatus = 'success';
+  } catch (error) {
+    STATE.githubUpdates = [];
+    STATE.githubUpdateStatus = 'error';
+  }
+  if ((STATE.currentRoute === 'home' || STATE.currentRoute === 'updates') && typeof renderPage === 'function') {
+    renderPage();
+  }
+}
+
+function formatGitHubDate(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('ja-JP', {
+    year: 'numeric', month: '2-digit', day: '2-digit'
+  }).format(date);
+}

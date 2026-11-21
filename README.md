@@ -5,6 +5,7 @@
 - `about/index.html`: About
 - `products/index.html`: Products
 - `news/index.html`: News
+- `updates/index.html`: GitHub commit-based update history
 - `sns/index.html`: Social links
 - `contact/index.html`: Contact
 - `404.html`: Not found page

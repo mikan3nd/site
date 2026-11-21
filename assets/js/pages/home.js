@@ -104,6 +104,30 @@ function renderHomePage() {
             }).join('')}
           </div>
         </section>
+
+        <section class="mt-8 sm:mt-10 bg-white rounded-[2rem] border border-slate-100 p-6 sm:p-10 shadow-card">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-6 rounded-full bg-mikan-500"></span>
+              <div>
+                <p class="text-xs font-bold tracking-[.16em] text-mikan-500">DEVELOPMENT LOG</p>
+                <h2 class="font-display font-bold text-2xl text-charcoal">サイト更新履歴</h2>
+              </div>
+            </div>
+            <a data-route="updates" href="./updates/" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-500">更新履歴をすべて見る <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          </div>
+          ${STATE.githubUpdateStatus === 'loading' || STATE.githubUpdateStatus === 'idle'
+            ? '<p class="text-sm text-slate-500">GitHubから更新履歴を取得しています…</p>'
+            : STATE.githubUpdateStatus === 'error'
+              ? '<p class="text-sm text-slate-500">更新履歴を取得できませんでした。時間をおいて再度ご確認ください。</p>'
+              : STATE.githubUpdates.length
+                ? `<ol class="space-y-3">${STATE.githubUpdates.slice(0,3).map(commit => `
+                    <li class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+                      <a class="min-w-0 text-sm font-semibold text-slate-700 hover:text-mikan-500" href="${safeHttpUrl(commit.html_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml((commit.commit?.message || '更新').split('\\n')[0])}</a>
+                      <time class="shrink-0 text-xs text-slate-400">${formatGitHubDate(commit.commit?.author?.date || commit.commit?.committer?.date)}</time>
+                    </li>`).join('')}</ol>`
+                : '<p class="text-sm text-slate-500">表示できる更新履歴はありません。</p>'}
+        </section>
       `;
     }
 

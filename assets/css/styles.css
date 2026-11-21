@@ -374,3 +374,20 @@ body[data-page="404"] main#app-view {
   .about-section { border-radius: 21px; }
   .about-interest-grid { grid-template-columns: 1fr; }
 }
+
+
+/* Skip navigation for keyboard and assistive technology users */
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 10px;
+  left: 10px;
+  transform: translateY(-160%);
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--shadow-soft);
+}
+.skip-link:focus { transform: translateY(0); }
