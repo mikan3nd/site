@@ -1,6 +1,7 @@
 function createShareMenu(type, item) {
       const title = item.title || item.name || 'みかん';
       const id = String(item.id || '');
+      if (!id || id.startsWith('sample-')) return '';
       const shareUrl = id
         ? new URL(`/share/${type}/${encodeURIComponent(id)}/`, window.location.origin).href
         : new URL(routeHref(type === 'news' ? 'news' : 'products'), window.location.href).href;
