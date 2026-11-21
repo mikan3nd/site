@@ -49,7 +49,7 @@ function renderHomePage() {
             <a data-route="news" href="./news/" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-500 hover:text-mikan-600">お知らせ一覧へ <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
           <div class="divide-y divide-slate-100">
-            ${latestNews.map((item, idx) => {
+            ${latestNews.length ? latestNews.map((item, idx) => {
               const catName = escapeHtml(item.category?.name || item.category || 'お知らせ');
               return `
                 <article role="button" tabindex="0" onclick="openNewsModal(${idx})" class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-6 cursor-pointer group">
@@ -63,7 +63,7 @@ function renderHomePage() {
                   <i data-lucide="chevron-right" class="hidden sm:block w-4 h-4 text-slate-400 group-hover:text-mikan-500 group-hover:translate-x-1 transition-all shrink-0"></i>
                 </article>
               `;
-            }).join('') : (STATE.productStatus === 'loading' || STATE.productStatus === 'idle' ? '<div class="col-span-full py-8 text-center text-sm text-slate-500">プロダクトを読み込んでいます…</div>' : STATE.productStatus === 'error' ? '<div class="col-span-full py-8 text-center text-sm text-slate-500">プロダクトを読み込めませんでした。</div>' : '<div class="col-span-full py-8 text-center text-sm text-slate-500">現在掲載中のプロダクトはありません。</div>')}
+            }).join('') : (STATE.cmsStatus === 'loading' || STATE.cmsStatus === 'idle' ? '<div class="py-8 text-center text-sm text-slate-500">お知らせを読み込んでいます…</div>' : STATE.cmsStatus === 'error' ? '<div class="py-8 text-center text-sm text-slate-500">お知らせを読み込めませんでした。</div>' : '<div class="py-8 text-center text-sm text-slate-500">現在お知らせはありません。</div>')}
           </div>
         </section>
 
