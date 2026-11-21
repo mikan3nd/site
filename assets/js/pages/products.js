@@ -56,7 +56,7 @@ function setProductCategory(cat) {
               const plainDesc = stripHtml(rawDesc) || '詳細をクリックしてご覧ください。';
 
               return `
-                <article onclick="openProductModal(${originalIndex})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-card hover:shadow-soft hover:border-mikan-300 transition-all flex flex-col">
+                <article role="button" tabindex="0" onclick="openProductModal(${originalIndex})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-card hover:shadow-soft hover:border-mikan-300 transition-all flex flex-col">
                   <!-- Top: Category Badge -->
                   <div class="px-5 pt-5 pb-3 flex items-center justify-between">
                     <span class="px-3 py-1 rounded-full bg-mikan-50 text-mikan-500 text-xs font-bold">

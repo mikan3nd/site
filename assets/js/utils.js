@@ -56,3 +56,83 @@ function getDisplayProducts() {
       tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || '';
     }
+
+
+/* Sanitize rich text received from microCMS before inserting it into the page. */
+function sanitizeCmsHtml(input) {
+  const template = document.createElement("template");
+  template.innerHTML = String(input || "");
+
+  const allowedTags = new Set([
+    "P", "BR", "STRONG", "B", "EM", "I", "U", "S",
+    "UL", "OL", "LI", "H1", "H2", "H3", "H4",
+    "BLOCKQUOTE", "PRE", "CODE", "A", "IMG", "FIGURE",
+    "FIGCAPTION", "TABLE", "THEAD", "TBODY", "TR",
+    "TH", "TD", "HR", "DIV", "SPAN"
+  ]);
+  const blockedTags = new Set([
+    "SCRIPT", "STYLE", "IFRAME", "OBJECT", "EMBED", "FORM",
+    "INPUT", "BUTTON", "META", "LINK", "SVG", "MATH",
+    "VIDEO", "AUDIO", "SOURCE", "TEMPLATE"
+  ]);
+
+  const safeUrl = (value, allowMailto = false) => {
+    try {
+      const parsed = new URL(value, window.location.origin);
+      return parsed.protocol === "https:" || parsed.protocol === "http:" ||
+        (allowMailto && parsed.protocol === "mailto:");
+    } catch {
+      return false;
+    }
+  };
+
+  const clean = parent => {
+    Array.from(parent.childNodes).forEach(node => {
+      if (node.nodeType !== Node.ELEMENT_NODE) {
+        if (node.nodeType !== Node.TEXT_NODE) node.remove();
+        return;
+      }
+
+      const tag = node.tagName;
+      if (blockedTags.has(tag)) {
+        node.remove();
+        return;
+      }
+
+      clean(node);
+      if (!allowedTags.has(tag)) {
+        node.replaceWith(...Array.from(node.childNodes));
+        return;
+      }
+
+      Array.from(node.attributes).forEach(attribute => {
+        const name = attribute.name.toLowerCase();
+        const allowed = (tag === "A" && ["href", "title"].includes(name)) ||
+          (tag === "IMG" && ["src", "alt", "title", "width", "height"].includes(name)) ||
+          (["TH", "TD"].includes(tag) && ["colspan", "rowspan", "scope"].includes(name));
+        if (!allowed) node.removeAttribute(attribute.name);
+      });
+
+      if (tag === "A") {
+        const href = node.getAttribute("href");
+        if (href && !safeUrl(href, true)) node.removeAttribute("href");
+        if (node.getAttribute("href")) {
+          node.setAttribute("target", "_blank");
+          node.setAttribute("rel", "noopener noreferrer");
+        }
+      }
+
+      if (tag === "IMG") {
+        const src = node.getAttribute("src");
+        if (!src || !safeUrl(src)) node.remove();
+        else {
+          node.setAttribute("loading", "lazy");
+          node.setAttribute("decoding", "async");
+        }
+      }
+    });
+  };
+
+  clean(template.content);
+  return template.innerHTML;
+}

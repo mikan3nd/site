@@ -333,3 +333,44 @@ body[data-page="404"] main#app-view {
 @media (prefers-reduced-motion: reduce) {
   #back-to-top, .not-found-actions a { transition: none; }
 }
+
+
+/* About page */
+.about-page { display: grid; gap: 1.25rem; }
+.about-hero {
+  position: relative; overflow: hidden; isolation: isolate;
+  padding: clamp(2rem, 6vw, 4.5rem);
+  border: 1px solid var(--line); border-radius: 30px;
+  background: linear-gradient(135deg, #fff 0%, #fafbff 58%, #eef2ff 100%);
+  box-shadow: var(--shadow-soft);
+}
+.about-hero::after {
+  content: "M"; position: absolute; z-index: -1; right: 5%; bottom: -.3em;
+  color: rgba(113,136,207,.07); font-size: clamp(12rem, 30vw, 22rem);
+  font-weight: 900; line-height: 1; pointer-events: none;
+}
+.about-eyebrow {
+  display: inline-flex; padding: 6px 12px; border-radius: 999px;
+  background: var(--blue-soft); color: #53689f; font-size: .72rem;
+  font-weight: 800; letter-spacing: .14em;
+}
+.about-section {
+  padding: clamp(1.4rem, 4vw, 2.25rem);
+  border: 1px solid var(--line); border-radius: 26px;
+  background: #fff; box-shadow: var(--shadow-card);
+}
+.about-interest-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+.about-interest {
+  min-width: 0; padding: 20px; border: 1px solid var(--line);
+  border-radius: 18px; background: linear-gradient(145deg,#fff,#f8f9fe);
+}
+.about-interest-icon {
+  display: grid; place-items: center; width: 42px; height: 42px;
+  margin-bottom: 14px; border-radius: 13px; background: var(--blue-soft); color: var(--navy);
+}
+@media (max-width: 767px) {
+  .about-hero { border-radius: 23px; }
+  .about-hero::after { right: 0; font-size: 12rem; }
+  .about-section { border-radius: 21px; }
+  .about-interest-grid { grid-template-columns: 1fr; }
+}

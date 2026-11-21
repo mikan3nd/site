@@ -20,7 +20,7 @@ function renderNewsPage() {
               const catName = article.category?.name || article.category || 'お知らせ';
               const excerpt = stripHtml(article.content || article.body || article.description || '記事の詳細をクリックしてご覧ください。');
               return `
-                <article onclick="openNewsModal(${idx})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
+                <article role="button" tabindex="0" onclick="openNewsModal(${idx})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
                   <div class="flex flex-wrap items-center gap-3 mb-2.5">
                     <time class="text-xs font-bold font-mono text-slate-400">${formatDate(article.publishedAt || article.createdAt)}</time>
                     <span class="px-3 py-0.5 rounded bg-mikan-50 text-mikan-500 text-xs font-bold">${catName}</span>

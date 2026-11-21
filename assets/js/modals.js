@@ -6,7 +6,7 @@ function openProductModal(index) {
       const catName = extractCategoryName(item);
       const thumbUrl = extractThumbnailUrl(item);
       const title = item.title || item.name || '無題のプロダクト';
-      const bodyHtml = item.content || item.body || `<p>${item.description || item.summary || '詳細情報はありません。'}</p>`;
+      const bodyHtml = sanitizeCmsHtml(item.content || item.body || `<p>${item.description || item.summary || '詳細情報はありません。'}</p>`);
       const rawLinkUrl = item.url || item.link || item.siteUrl || '';
       const linkUrl = rawLinkUrl === '#home' ? routeHref('home') : rawLinkUrl;
 
@@ -47,7 +47,7 @@ function openProductModal(index) {
       if (!article) return;
 
       const catName = article.category?.name || article.category || 'お知らせ';
-      const bodyHtml = article.content || article.body || `<p>${article.description || '本文データがありません。'}</p>`;
+      const bodyHtml = sanitizeCmsHtml(article.content || article.body || `<p>${article.description || '本文データがありません。'}</p>`);
 
       const modalBody = document.getElementById('modal-body');
       modalBody.innerHTML = `

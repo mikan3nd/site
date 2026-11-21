@@ -21,7 +21,11 @@ function updateActiveNav() {
       link.classList.toggle("text-mikan-500", active);
       link.classList.toggle("border-mikan-300", active);
     }
-    if (link.tagName === "A") link.href = routeHref(link.dataset.route);
+    if (link.tagName === "A") {
+      link.href = routeHref(link.dataset.route);
+      if (active) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    }
   });
 }
 function toggleMobileMenu() {
@@ -31,6 +35,7 @@ function toggleMobileMenu() {
   const willOpen = menu.classList.contains("hidden");
   menu.classList.toggle("hidden");
   button?.setAttribute("aria-expanded", String(willOpen));
+  button?.setAttribute("aria-label", willOpen ? "メニューを閉じる" : "メニューを開く");
 }
 function showToast(message) {
   const toast = document.getElementById("toast");
@@ -54,6 +59,30 @@ async function loadSharedLayout() {
   document.body.insertAdjacentHTML("beforeend", overlays);
   updateActiveNav();
   installBackToTop();
+}
+
+function installCardKeyboardSupport() {
+  const main = document.getElementById("app-view");
+  if (!main || main.dataset.keyboardSupport === "ready") return;
+  main.dataset.keyboardSupport = "ready";
+
+  const makeFocusable = () => {
+    main.querySelectorAll("article[onclick]").forEach(card => {
+      if (!card.hasAttribute("tabindex")) card.setAttribute("tabindex", "0");
+      if (!card.hasAttribute("role")) card.setAttribute("role", "button");
+    });
+  };
+  makeFocusable();
+
+  const observer = new MutationObserver(makeFocusable);
+  observer.observe(main, { childList: true, subtree: true });
+
+  main.addEventListener("keydown", event => {
+    const card = event.target.closest("article[onclick]");
+    if (!card || (event.key !== "Enter" && event.key !== " ")) return;
+    event.preventDefault();
+    card.click();
+  });
 }
 
 function installBackToTop() {
@@ -82,9 +111,16 @@ window.addEventListener("DOMContentLoaded", async () => {
   try {
     await loadSharedLayout();
     if (typeof renderPage === "function") renderPage();
-    fetchDiscordLanyard();
-    fetchMicroCMSNews();
-    fetchMicroCMSProducts();
+    if (CURRENT_PAGE === "home") {
+      fetchDiscordLanyard();
+      fetchMicroCMSNews();
+      fetchMicroCMSProducts();
+    } else if (CURRENT_PAGE === "news") {
+      fetchMicroCMSNews();
+    } else if (CURRENT_PAGE === "products") {
+      fetchMicroCMSProducts();
+    }
+    installCardKeyboardSupport();
     lucide.createIcons();
   } catch (error) {
     console.error(error);

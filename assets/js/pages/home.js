@@ -52,7 +52,7 @@ function renderHomePage() {
             ${latestNews.map((item, idx) => {
               const catName = item.category?.name || item.category || 'お知らせ';
               return `
-                <article onclick="openNewsModal(${idx})" class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-6 cursor-pointer group">
+                <article role="button" tabindex="0" onclick="openNewsModal(${idx})" class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-6 cursor-pointer group">
                   <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <div class="flex items-center gap-2.5 shrink-0">
                       <time class="text-xs font-bold text-slate-400 font-mono">${formatDate(item.publishedAt || item.createdAt)}</time>
@@ -86,7 +86,7 @@ function renderHomePage() {
               const title = item.title || item.name || '無題のプロダクト';
               const plainDesc = stripHtml(item.description || item.content || item.summary || '') || '詳細はプロダクトページをご覧ください。';
               return `
-                <article onclick="openProductModal(${originalIndex})" class="group min-w-0 cursor-pointer rounded-2xl border border-slate-100 bg-white overflow-hidden hover:border-mikan-300 hover:shadow-soft transition-all">
+                <article role="button" tabindex="0" onclick="openProductModal(${originalIndex})" class="group min-w-0 cursor-pointer rounded-2xl border border-slate-100 bg-white overflow-hidden hover:border-mikan-300 hover:shadow-soft transition-all">
                   <div class="aspect-video overflow-hidden bg-mikan-50">
                     ${thumbUrl
                       ? `<img src="${thumbUrl}" alt="${title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />`
