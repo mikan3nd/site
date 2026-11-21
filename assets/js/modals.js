@@ -2,9 +2,9 @@ function createShareMenu(type, item) {
       const title = item.title || item.name || 'みかん';
       const id = String(item.id || '');
       if (!id || id.startsWith('sample-')) return '';
-      const shareUrl = id
-        ? new URL(`/share/${type}/${encodeURIComponent(id)}/`, window.location.origin).href
-        : new URL(routeHref(type === 'news' ? 'news' : 'products'), window.location.href).href;
+      const safeType = type === 'news' ? 'news' : 'products';
+      // Always share the CMS item's own detail URL, never the section/list URL.
+      const shareUrl = window.location.origin + '/share/' + safeType + '/' + encodeURIComponent(id) + '/';
       return `
         <section class="share-panel" aria-label="共有メニュー">
           <div class="share-panel-heading"><i data-lucide="share-2" class="w-4 h-4"></i><span>この記事を共有</span></div>
