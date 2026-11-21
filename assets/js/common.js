@@ -25,7 +25,12 @@ function updateActiveNav() {
   });
 }
 function toggleMobileMenu() {
-  document.getElementById("mobile-menu")?.classList.toggle("hidden");
+  const menu = document.getElementById("mobile-menu");
+  const button = document.getElementById("mobile-menu-btn");
+  if (!menu) return;
+  const willOpen = menu.classList.contains("hidden");
+  menu.classList.toggle("hidden");
+  button?.setAttribute("aria-expanded", String(willOpen));
 }
 function showToast(message) {
   const toast = document.getElementById("toast");

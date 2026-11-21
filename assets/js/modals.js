@@ -7,7 +7,8 @@ function openProductModal(index) {
       const thumbUrl = extractThumbnailUrl(item);
       const title = item.title || item.name || '無題のプロダクト';
       const bodyHtml = item.content || item.body || `<p>${item.description || item.summary || '詳細情報はありません。'}</p>`;
-      const linkUrl = item.url || item.link || item.siteUrl || '';
+      const rawLinkUrl = item.url || item.link || item.siteUrl || '';
+      const linkUrl = rawLinkUrl === '#home' ? routeHref('home') : rawLinkUrl;
 
       const modalBody = document.getElementById('modal-body');
       modalBody.innerHTML = `
