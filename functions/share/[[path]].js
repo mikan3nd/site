@@ -1,3 +1,42 @@
+const CMS = {
+  news: { domain: "swe2db8jva", endpoint: "news", key: "ksq03pQ5FRz9yDM47YPdyxlqhzlQir5TGStQ" },
+  products: { domain: "mikan-product", endpoint: "blogs", key: "0zDNjpizK50XUrNzpSB4eVhwyXDB8QQeI0p5" }
+};
+const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+})[c]);
+const plainText = value => String(value || "").replace(/<[^>]*>/g, " ")
+  .replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&").replace(/&lt;/gi, "<")
+  .replace(/&gt;/gi, ">").replace(/&quot;/gi, '"').replace(/&#39;/gi, "'")
+  .replace(/\s+/g, " ").trim();
+async function findItem(type, id) {
+  const config = CMS[type];
+  const base = "https://" + config.domain + ".microcms.io/api/v1/" + config.endpoint;
+  let offset = 0, total = Infinity;
+  while (offset < total && offset < 1000) {
+    const response = await fetch(base + "?limit=100&offset=" + offset, {
+      headers: { "X-MICROCMS-API-KEY": config.key }
+    });
+    if (!response.ok) throw new Error("microCMS returned " + response.status);
+    const data = await response.json();
+    const items = Array.isArray(data.contents) ? data.contents : [];
+    const item = items.find(entry => entry && entry.id === id);
+    if (item) return item;
+    total = Number(data.totalCount) || 0;
+    if (!items.length) break;
+    offset += items.length;
+  }
+  return null;
+}
+function imageUrl(item) {
+  const field = item.eyecatch || item.thumbnail || item.image || item.cover;
+  const value = typeof field === "string" ? field : field?.url;
+  if (!value) return "";
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:" ? parsed.href : "";
+  } catch { return ""; }
+}
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   const parts = url.pathname.split("/").filter(Boolean);
@@ -6,18 +45,34 @@ export async function onRequest(context) {
   if (!["news", "products"].includes(type) || !/^[A-Za-z0-9_-]{1,128}$/.test(id)) {
     return new Response("Not Found", { status: 404 });
   }
+
   const label = type === "news" ? "お知らせ" : "プロダクト";
+  let item = null;
+  try { item = await findItem(type, id); } catch (error) {
+    // Keep the article readable even if CMS metadata lookup temporarily fails.
+  }
+  if (!item) {
+    return new Response("記事を読み込めませんでした。", {
+      status: 404, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" }
+    });
+  }
+
+  const title = String(item.title || item.name || label) + " | みかん";
+  const description = plainText(item.description || item.summary || item.content || item.body || "みかん公式サイトのお知らせです。").slice(0, 180);
+  const image = imageUrl(item) || url.origin + "/og/" + type + "/" + encodeURIComponent(id) + ".svg";
+  const canonical = url.origin + "/share/" + type + "/" + encodeURIComponent(id) + "/";
   const html = `<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f5f6fa"><title>${label} | みかん</title>
-<meta name="description" content="みかん公式サイトの${label}ページです。">
+<meta name="theme-color" content="#f5f6fa"><title>${escapeHtml(title)}</title>
+<meta name="description" content="${escapeHtml(description)}">
 <meta property="og:type" content="article"><meta property="og:site_name" content="みかん">
-<meta property="og:title" content="${label} | みかん"><meta property="og:description" content="みかん公式サイトの${label}ページです。">
-<meta property="og:url" content="${url.origin}/share/${type}/${encodeURIComponent(id)}/">
-<meta property="og:image" content="${url.origin}/og/${type}/${encodeURIComponent(id)}.svg">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${label} | みかん"><meta name="twitter:image" content="${url.origin}/og/${type}/${encodeURIComponent(id)}.svg">
-<link rel="canonical" href="${url.origin}/share/${type}/${encodeURIComponent(id)}/">
+<meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:url" content="${escapeHtml(canonical)}">
+<meta property="og:image" content="${escapeHtml(image)}"><meta property="og:image:secure_url" content="${escapeHtml(image)}">
+<meta property="og:image:alt" content="${escapeHtml(item.title || item.name || label)}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escapeHtml(title)}">
+<meta name="twitter:description" content="${escapeHtml(description)}"><meta name="twitter:image" content="${escapeHtml(image)}">
+<link rel="canonical" href="${escapeHtml(canonical)}">
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#20283f;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;line-height:1.85}
 header{background:#fff;border-bottom:1px solid #e8eaf0;padding:18px max(22px,calc((100% - 900px)/2));font-weight:800}
