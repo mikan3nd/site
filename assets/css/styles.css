@@ -367,3 +367,38 @@ footer a:hover { color: var(--navy); }
 @media (prefers-reduced-motion: reduce) {
   .animate-float { animation: none !important; }
 }
+
+
+/* High-specificity overrides for the fixed Tailwind dimensions in the hero */
+@media (max-width: 767px) {
+  body[data-page="home"] #app-view > .page-transition > section:first-child .w-64 {
+    width: clamp(150px, 54vw, 218px) !important;
+    height: clamp(150px, 54vw, 218px) !important;
+  }
+}
+@media (max-width: 767px) and (orientation: landscape) {
+  body[data-page="home"] #app-view > .page-transition > section:first-child .w-64 {
+    width: clamp(112px, 27vw, 176px) !important;
+    height: clamp(112px, 27vw, 176px) !important;
+  }
+}
+@media (max-height: 430px) and (orientation: landscape) {
+  body[data-page="home"] #app-view > .page-transition > section:first-child .w-64 {
+    width: min(25vw, 150px) !important;
+    height: min(25vw, 150px) !important;
+  }
+}
+/* Draw a clear menu glyph independent of icon-font loading */
+#mobile-menu-btn > span { visibility: hidden; }
+#mobile-menu-btn::before,
+#mobile-menu-btn::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+}
+#mobile-menu-btn { position: relative; }
+#mobile-menu-btn::before { transform: translateY(-4px); box-shadow: 0 6px 0 #fff; }
+#mobile-menu-btn::after { width: 14px; transform: translate(3px, 8px); }
