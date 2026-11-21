@@ -1,4 +1,20 @@
-function getDisplayProducts() {
+function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[char]);
+    }
+
+    function safeHttpUrl(value) {
+      if (!value) return '';
+      try {
+        const url = new URL(String(value), window.location.origin);
+        return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : '';
+      } catch {
+        return '';
+      }
+    }
+
+    function getDisplayProducts() {
       if (STATE.productStatus === 'success' && STATE.productItems.length > 0) {
         return STATE.productItems;
       }
@@ -22,8 +38,8 @@ function getDisplayProducts() {
       if (!item) return null;
       const imgField = item.thumbnail || item.eyecatch || item.image || item.cover;
       if (!imgField) return null;
-      if (typeof imgField === 'string') return imgField;
-      if (imgField.url) return imgField.url;
+      if (typeof imgField === 'string') return safeHttpUrl(imgField);
+      if (imgField.url) return safeHttpUrl(imgField.url);
       return null;
     }
 

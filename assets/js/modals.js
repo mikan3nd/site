@@ -3,12 +3,12 @@ function openProductModal(index) {
       const item = items[index];
       if (!item) return;
 
-      const catName = extractCategoryName(item);
+      const catName = escapeHtml(extractCategoryName(item));
       const thumbUrl = extractThumbnailUrl(item);
-      const title = item.title || item.name || '無題のプロダクト';
-      const bodyHtml = sanitizeCmsHtml(item.content || item.body || `<p>${item.description || item.summary || '詳細情報はありません。'}</p>`);
+      const title = escapeHtml(item.title || item.name || '無題のプロダクト');
+      const bodyHtml = sanitizeCmsHtml(item.content || item.body || `<p>${escapeHtml(item.description || item.summary || '詳細情報はありません。')}</p>`);
       const rawLinkUrl = item.url || item.link || item.siteUrl || '';
-      const linkUrl = rawLinkUrl === '#home' ? routeHref('home') : rawLinkUrl;
+      const linkUrl = safeHttpUrl(rawLinkUrl === '#home' ? routeHref('home') : rawLinkUrl);
 
       const modalBody = document.getElementById('modal-body');
       modalBody.innerHTML = `
@@ -46,8 +46,8 @@ function openProductModal(index) {
       const article = items[index];
       if (!article) return;
 
-      const catName = article.category?.name || article.category || 'お知らせ';
-      const bodyHtml = sanitizeCmsHtml(article.content || article.body || `<p>${article.description || '本文データがありません。'}</p>`);
+      const catName = escapeHtml(article.category?.name || article.category || 'お知らせ');
+      const bodyHtml = sanitizeCmsHtml(article.content || article.body || `<p>${escapeHtml(article.description || '本文データがありません。')}</p>`);
 
       const modalBody = document.getElementById('modal-body');
       modalBody.innerHTML = `
@@ -62,7 +62,7 @@ function openProductModal(index) {
           </h2>
 
           ${article.eyecatch?.url ? `
-            <img src="${article.eyecatch.url}" alt="${article.title}" class="w-full h-56 object-cover rounded-2xl border border-mikan-100" />
+            <img src="${safeHttpUrl(article.eyecatch.url)}" alt="${escapeHtml(article.title || '')}" class="w-full h-56 object-cover rounded-2xl border border-mikan-100" />
           ` : ''}
 
           <div class="pt-4 border-t border-mikan-100 text-sm sm:text-base text-neutral-700 cms-content">

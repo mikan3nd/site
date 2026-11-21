@@ -32,7 +32,7 @@ function setProductCategory(cat) {
                 const isActive = cat === currentCat;
                 return `
                   <button
-                    onclick="setProductCategory('${cat.replace(/'/g, "\\'")}')"
+                    onclick="setProductCategory(this.dataset.category)" data-category="${escapeHtml(cat)}"
                     class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all ${
                       isActive
                         ? 'bg-mikan-500 text-white shadow-sm'
@@ -49,11 +49,11 @@ function setProductCategory(cat) {
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             ${filteredProducts.map((item) => {
               const originalIndex = allProducts.indexOf(item);
-              const catName = extractCategoryName(item);
+              const catName = escapeHtml(extractCategoryName(item));
               const thumbUrl = extractThumbnailUrl(item);
-              const title = item.title || '無題のプロダクト';
+              const title = escapeHtml(item.title || '無題のプロダクト');
               const rawDesc = item.content || item.description || '';
-              const plainDesc = stripHtml(rawDesc) || '詳細をクリックしてご覧ください。';
+              const plainDesc = escapeHtml(stripHtml(rawDesc) || '詳細をクリックしてご覧ください。');
 
               return `
                 <article role="button" tabindex="0" onclick="openProductModal(${originalIndex})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-card hover:shadow-soft hover:border-mikan-300 transition-all flex flex-col">

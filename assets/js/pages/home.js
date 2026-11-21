@@ -50,7 +50,7 @@ function renderHomePage() {
           </div>
           <div class="divide-y divide-slate-100">
             ${latestNews.map((item, idx) => {
-              const catName = item.category?.name || item.category || 'お知らせ';
+              const catName = escapeHtml(item.category?.name || item.category || 'お知らせ');
               return `
                 <article role="button" tabindex="0" onclick="openNewsModal(${idx})" class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-6 cursor-pointer group">
                   <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
@@ -58,7 +58,7 @@ function renderHomePage() {
                       <time class="text-xs font-bold text-slate-400 font-mono">${formatDate(item.publishedAt || item.createdAt)}</time>
                       <span class="px-2.5 py-0.5 rounded bg-mikan-50 text-mikan-500 text-xs font-bold">${catName}</span>
                     </div>
-                    <h3 class="font-bold text-sm sm:text-base text-charcoal group-hover:text-mikan-500 transition-colors line-clamp-1">${item.title || '無題のお知らせ'}</h3>
+                    <h3 class="font-bold text-sm sm:text-base text-charcoal group-hover:text-mikan-500 transition-colors line-clamp-1">${escapeHtml(item.title || '無題のお知らせ')}</h3>
                   </div>
                   <i data-lucide="chevron-right" class="hidden sm:block w-4 h-4 text-slate-400 group-hover:text-mikan-500 group-hover:translate-x-1 transition-all shrink-0"></i>
                 </article>
@@ -83,8 +83,8 @@ function renderHomePage() {
               const originalIndex = allProducts.indexOf(item);
               const catName = extractCategoryName(item);
               const thumbUrl = extractThumbnailUrl(item);
-              const title = item.title || item.name || '無題のプロダクト';
-              const plainDesc = stripHtml(item.description || item.content || item.summary || '') || '詳細はプロダクトページをご覧ください。';
+              const title = escapeHtml(item.title || item.name || '無題のプロダクト');
+              const plainDesc = escapeHtml(stripHtml(item.description || item.content || item.summary || '') || '詳細はプロダクトページをご覧ください。');
               return `
                 <article role="button" tabindex="0" onclick="openProductModal(${originalIndex})" class="group min-w-0 cursor-pointer rounded-2xl border border-slate-100 bg-white overflow-hidden hover:border-mikan-300 hover:shadow-soft transition-all">
                   <div class="aspect-video overflow-hidden bg-mikan-50">

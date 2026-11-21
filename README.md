@@ -2,6 +2,7 @@
 
 ## Pages
 - `index.html`: Home
+- `about/index.html`: About
 - `products/index.html`: Products
 - `news/index.html`: News
 - `sns/index.html`: Social links
