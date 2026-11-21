@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>みかん | Mikan Official Website</title>
-  <!-- Google Fonts: Zen Maru Gothic & Plus Jakarta Sans & Noto Sans JP -->
+  <!-- Google Fonts: Zen Kaku Gothic New, Noto Sans JP & Caveat (Script) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;700;800&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -18,32 +18,30 @@
         extend: {
           colors: {
             mikan: {
-              50: '#FFF8F0',
-              100: '#FFEFDB',
-              200: '#FFDCB5',
-              300: '#FFC285',
-              400: '#FF9E40',
-              500: '#FF7A00',
-              600: '#E06500',
-              700: '#B84E00',
+              50: '#F4F6FC',
+              100: '#E5E9F8',
+              200: '#C7D2FE',
+              300: '#A5B4FC',
+              400: '#6376B8',
+              500: '#1E2B58',
+              600: '#162044',
+              700: '#0F1733',
             },
-            leaf: {
-              50: '#F1F8F2',
-              100: '#DCF0DF',
-              500: '#388E3C',
-              600: '#2E7D32',
-              700: '#1B5E20',
+            accent: {
+              blue: '#B4C3F5',
+              lavender: '#C7B8EA',
             },
-            cream: '#FFFDF9',
-            charcoal: '#2D2926',
+            cream: '#FFFFFF',
+            charcoal: '#1A202C',
           },
           fontFamily: {
-            sans: ['"Noto Sans JP"', '"Plus Jakarta Sans"', 'sans-serif'],
-            display: ['"Zen Maru Gothic"', '"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+            display: ['"Zen Kaku Gothic New"', '"Noto Sans JP"', 'sans-serif'],
+            script: ['"Caveat"', 'cursive'],
           },
           boxShadow: {
-            'soft': '0 10px 40px -10px rgba(255, 122, 0, 0.12)',
-            'card': '0 4px 20px -2px rgba(45, 41, 38, 0.06)',
+            'soft': '0 16px 40px -12px rgba(30, 43, 88, 0.12)',
+            'card': '0 6px 24px -4px rgba(30, 43, 88, 0.06)',
           }
         }
       }
@@ -51,12 +49,12 @@
   </script>
   <style>
     body {
-      background-color: #FFFDF9;
-      color: #2D2926;
+      background-color: #FFFFFF;
+      color: #1A202C;
       overflow-x: hidden;
     }
     .glass-nav {
-      background: rgba(255, 253, 249, 0.85);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
@@ -74,88 +72,99 @@
       }
     }
     @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(2deg); }
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
     }
     .animate-float {
       animation: floatSlow 5s ease-in-out infinite;
+    }
+    /* Brush stroke underline matching reference aesthetic */
+    .brush-blue {
+      background: linear-gradient(transparent 52%, #B4C3F5 52%, #B4C3F5 88%, transparent 88%);
+      padding: 0 6px;
+    }
+    .brush-lavender {
+      background: linear-gradient(transparent 52%, #C7B8EA 52%, #C7B8EA 88%, transparent 88%);
+      padding: 0 6px;
+    }
+    .vertical-scroll-text {
+      writing-mode: vertical-rl;
+      letter-spacing: 0.25em;
     }
     /* Rich text content styling from microCMS */
     .cms-content h1, .cms-content h2, .cms-content h3 {
       font-weight: 700;
       margin-top: 1.25em;
       margin-bottom: 0.5em;
-      color: #2D2926;
+      color: #1A202C;
     }
-    .cms-content h2 { font-size: 1.25rem; border-left: 4px solid #FF7A00; padding-left: 0.75rem; }
+    .cms-content h2 { font-size: 1.25rem; border-left: 4px solid #1E2B58; padding-left: 0.75rem; }
     .cms-content p { margin-bottom: 1em; line-height: 1.8; }
     .cms-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1em; }
-    .cms-content a { color: #FF7A00; text-decoration: underline; }
+    .cms-content a { color: #1E2B58; text-decoration: underline; }
     .cms-content img { border-radius: 1rem; margin: 1rem 0; max-width: 100%; height: auto; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-mikan-200 selection:text-charcoal">
+<body class="min-h-screen flex flex-col selection:bg-mikan-200 selection:text-mikan-700">
 
-  <!-- Background Decorative Blobs -->
-  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-mikan-200/40 blur-3xl"></div>
-    <div class="absolute top-1/2 -left-32 w-80 h-80 rounded-full bg-leaf-100/50 blur-3xl"></div>
-    <div class="absolute -bottom-24 right-1/4 w-96 h-96 rounded-full bg-mikan-100/60 blur-3xl"></div>
-  </div>
-
-  <!-- Navigation Header -->
-  <header class="sticky top-0 z-40 glass-nav border-b border-mikan-100 transition-all">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+  <!-- Navigation Header (Clean White + Right Square Navy Menu Trigger) -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-slate-100 transition-all">
+    <div class="max-w-7xl mx-auto pl-4 sm:pl-8 h-20 flex items-center justify-between">
       <!-- Brand Logo -->
-      <a href="#home" onclick="navigateTo('home', event)" class="flex items-center gap-3 group focus:outline-none">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-mikan-400 to-mikan-500 flex items-center justify-center shadow-md shadow-mikan-500/20 group-hover:scale-105 transition-transform">
-          <!-- Custom Mikan SVG Icon -->
-          <svg class="w-7 h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="20" r="12" fill="#FFFDF9"/>
-            <circle cx="18" cy="20" r="10.5" fill="#FF7A00"/>
-            <path d="M18 8C18 8 19.5 3.5 24.5 4.5C24.5 4.5 23 8.5 18 8Z" fill="#2E7D32"/>
-            <path d="M18 8C18 8 15 5 12 6.5C12 6.5 14.5 9.5 18 8Z" fill="#388E3C"/>
-            <circle cx="14" cy="17" r="1.2" fill="#FFF8F0" fill-opacity="0.7"/>
-            <circle cx="12.5" cy="20" r="0.8" fill="#FFF8F0" fill-opacity="0.6"/>
-          </svg>
+      <a href="#home" onclick="navigateTo('home', event)" class="flex items-center gap-3.5 group focus:outline-none">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-mikan-500 via-mikan-400 to-accent-blue flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+          <span class="text-white font-display font-black text-base tracking-tighter">M</span>
         </div>
-        <div>
-          <span class="font-display font-black text-2xl tracking-tight text-charcoal group-hover:text-mikan-500 transition-colors">みかん</span>
-          <span class="block text-[10px] font-bold tracking-widest text-mikan-500 uppercase -mt-1">Mikan Studio</span>
+        <div class="flex items-baseline gap-2.5">
+          <span class="font-display font-bold text-xl sm:text-2xl tracking-wider text-charcoal group-hover:text-mikan-500 transition-colors">みかん</span>
+          <span class="hidden sm:inline-block text-[11px] font-medium tracking-widest text-slate-400 uppercase">Mikan Official</span>
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-1 bg-mikan-50/80 p-1.5 rounded-full border border-mikan-100" id="desktop-nav">
-        <button data-route="home" onclick="navigateTo('home')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all">Home</button>
-        <button data-route="news" onclick="navigateTo('news')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-1.5">
-          お知らせ
-          <span class="w-2 h-2 rounded-full bg-mikan-500 animate-pulse"></span>
-        </button>
-        <button data-route="sns" onclick="navigateTo('sns')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all">SNS</button>
-        <button data-route="contact" onclick="navigateTo('contact')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold transition-all">Contact</button>
-      </nav>
+      <!-- Right Nav & Square Navy Menu Button -->
+      <div class="flex items-center h-full">
+        <!-- Desktop Horizontal Links -->
+        <nav class="hidden md:flex items-center gap-2 lg:gap-5 pr-6 lg:pr-10" id="desktop-nav">
+          <button data-route="home" onclick="navigateTo('home')" class="nav-btn px-3 py-2 text-sm font-bold tracking-wide transition-all">Home</button>
+          <button data-route="products" onclick="navigateTo('products')" class="nav-btn px-3 py-2 text-sm font-bold tracking-wide transition-all">プロダクト</button>
+          <button data-route="news" onclick="navigateTo('news')" class="nav-btn px-3 py-2 text-sm font-bold tracking-wide transition-all flex items-center gap-1.5">
+            お知らせ
+            <span class="w-1.5 h-1.5 rounded-full bg-mikan-500"></span>
+          </button>
+          <button data-route="sns" onclick="navigateTo('sns')" class="nav-btn px-3 py-2 text-sm font-bold tracking-wide transition-all">SNS</button>
+          <button data-route="contact" onclick="navigateTo('contact')" class="nav-btn px-3 py-2 text-sm font-bold tracking-wide transition-all">お問い合わせ</button>
+        </nav>
 
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-mikan-50 text-charcoal hover:bg-mikan-100 transition-colors" aria-label="メニューを開く">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
+        <!-- Signature Right Square Navy Menu Button -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="w-20 h-20 bg-mikan-500 hover:bg-mikan-600 text-white flex flex-col items-center justify-center transition-colors shrink-0" aria-label="メニューを開く">
+          <div class="space-y-1.5">
+            <span class="block w-6 h-0.5 bg-white"></span>
+            <span class="block w-6 h-0.5 bg-white"></span>
+            <span class="block w-4 h-0.5 bg-white ml-auto"></span>
+          </div>
+        </button>
+      </div>
     </div>
 
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden border-t border-mikan-100 bg-cream px-4 pt-3 pb-6 space-y-2 shadow-lg">
-      <button data-route="home" onclick="navigateTo('home'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
-        <span>Home</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
-      </button>
-      <button data-route="news" onclick="navigateTo('news'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
-        <span>お知らせ (News)</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
-      </button>
-      <button data-route="sns" onclick="navigateTo('sns'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
-        <span>SNSリンク</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
-      </button>
-      <button data-route="contact" onclick="navigateTo('contact'); toggleMobileMenu()" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl font-bold flex items-center justify-between">
-        <span>お問い合わせ (Contact)</span><i data-lucide="chevron-right" class="w-4 h-4"></i>
-      </button>
+    <!-- Expandable Navigation Drawer -->
+    <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white px-6 py-6 shadow-xl">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+        <button data-route="home" onclick="navigateTo('home'); toggleMobileMenu()" class="mobile-nav-btn text-left px-4 py-3.5 rounded-xl font-bold text-sm flex items-center justify-between border border-slate-100 hover:border-mikan-300 transition-colors">
+          <span>Home</span><i data-lucide="chevron-right" class="w-4 h-4 text-mikan-500"></i>
+        </button>
+        <button data-route="products" onclick="navigateTo('products'); toggleMobileMenu()" class="mobile-nav-btn text-left px-4 py-3.5 rounded-xl font-bold text-sm flex items-center justify-between border border-slate-100 hover:border-mikan-300 transition-colors">
+          <span>プロダクト</span><i data-lucide="chevron-right" class="w-4 h-4 text-mikan-500"></i>
+        </button>
+        <button data-route="news" onclick="navigateTo('news'); toggleMobileMenu()" class="mobile-nav-btn text-left px-4 py-3.5 rounded-xl font-bold text-sm flex items-center justify-between border border-slate-100 hover:border-mikan-300 transition-colors">
+          <span>お知らせ</span><i data-lucide="chevron-right" class="w-4 h-4 text-mikan-500"></i>
+        </button>
+        <button data-route="sns" onclick="navigateTo('sns'); toggleMobileMenu()" class="mobile-nav-btn text-left px-4 py-3.5 rounded-xl font-bold text-sm flex items-center justify-between border border-slate-100 hover:border-mikan-300 transition-colors">
+          <span>SNS</span><i data-lucide="chevron-right" class="w-4 h-4 text-mikan-500"></i>
+        </button>
+        <button data-route="contact" onclick="navigateTo('contact'); toggleMobileMenu()" class="mobile-nav-btn text-left px-4 py-3.5 rounded-xl font-bold text-sm flex items-center justify-between border border-slate-100 hover:border-mikan-300 transition-colors">
+          <span>お問い合わせ</span><i data-lucide="chevron-right" class="w-4 h-4 text-mikan-500"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -164,10 +173,10 @@
     <!-- Content rendered via JS -->
   </main>
 
-  <!-- Detail Modal (For News Articles) -->
-  <div id="detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-charcoal/50 backdrop-blur-sm transition-opacity" onclick="closeModalOnBackdrop(event)">
-    <div class="bg-cream rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl border border-mikan-100 p-6 sm:p-8 relative animate-[fadeSlideUp_0.25s_ease-out]">
-      <button onclick="closeModal()" class="sticky top-0 float-right p-2 rounded-full bg-mikan-50 text-charcoal hover:bg-mikan-500 hover:text-white transition-colors" aria-label="閉じる">
+  <!-- Detail Modal -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-mikan-700/50 backdrop-blur-sm transition-opacity" onclick="closeModalOnBackdrop(event)">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl border border-slate-100 p-6 sm:p-8 relative animate-[fadeSlideUp_0.25s_ease-out]">
+      <button onclick="closeModal()" class="sticky top-0 float-right p-2.5 rounded-full bg-mikan-50 text-mikan-500 hover:bg-mikan-500 hover:text-white transition-colors" aria-label="閉じる">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
       <div id="modal-body" class="clear-both pt-2">
@@ -178,27 +187,28 @@
 
   <!-- Toast Notification -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="bg-charcoal text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium">
-      <span class="w-2.5 h-2.5 rounded-full bg-mikan-400"></span>
+    <div class="bg-mikan-500 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium">
+      <span class="w-2.5 h-2.5 rounded-full bg-accent-blue"></span>
       <span id="toast-message">通知メッセージ</span>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-mikan-100 mt-16">
+  <footer class="bg-mikan-50/70 border-t border-mikan-100 mt-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-mikan-100">
         <div class="md:col-span-2 space-y-4">
-          <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-mikan-500 flex items-center justify-center text-white font-display font-black text-lg">み</div>
-            <span class="font-display font-black text-xl text-charcoal">みかん (Mikan)</span>
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-mikan-500 flex items-center justify-center text-white font-display font-black text-base">M</div>
+            <span class="font-display font-bold text-xl tracking-wider text-charcoal">みかん (Mikan)</span>
           </div>
         </div>
 
         <div>
-          <h3 class="font-display font-bold text-sm text-charcoal mb-3">ページ一覧</h3>
-          <ul class="space-y-2 text-sm text-neutral-600">
+          <h3 class="font-display font-bold text-sm text-mikan-500 mb-3 tracking-wider">ページ一覧</h3>
+          <ul class="space-y-2 text-sm text-slate-600">
             <li><a href="#home" onclick="navigateTo('home', event)" class="hover:text-mikan-500 transition-colors">Home (トップ)</a></li>
+            <li><a href="#products" onclick="navigateTo('products', event)" class="hover:text-mikan-500 transition-colors">プロダクト</a></li>
             <li><a href="#news" onclick="navigateTo('news', event)" class="hover:text-mikan-500 transition-colors">お知らせ</a></li>
             <li><a href="#sns" onclick="navigateTo('sns', event)" class="hover:text-mikan-500 transition-colors">公式SNSリンク</a></li>
             <li><a href="#contact" onclick="navigateTo('contact', event)" class="hover:text-mikan-500 transition-colors">お問い合わせ</a></li>
@@ -206,7 +216,7 @@
         </div>
       </div>
 
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
         <p>&copy; 2026 みかん (Mikan). All rights reserved.</p>
       </div>
     </div>
@@ -226,14 +236,48 @@
         apiKey: 'ksq03pQ5FRz9yDM47YPDyxlqhzlQir5TGStQ',
         endpoint: 'news'
       },
+      productCmsConfig: {
+        serviceDomain: 'mikan-product',
+        apiKey: '0zDNjpizK50XUrNzpSB4eVhwyXDB8QQeI0p5',
+        endpoint: 'blogs'
+      },
       cmsStatus: 'idle', // 'idle' | 'loading' | 'success' | 'error'
       cmsArticles: [],
+      productStatus: 'idle',
+      productItems: [],
+      selectedProductCategory: 'すべて',
       discord: {
         avatarUrl: null,
         status: 'offline', // 'online' | 'idle' | 'dnd' | 'offline'
         username: 'みかん'
       }
     };
+
+    // Fallback Products (Displayed if microCMS endpoint has no entries or is unreachable)
+    const FALLBACK_PRODUCTS = [
+      {
+        id: 'prod-1',
+        title: 'みかん公式ホームページ',
+        category: { name: 'Web' },
+        description: '洗練されたホワイト＆ネイビーの配色を採用した公式ポートフォリオ＆お知らせサイト。microCMSやLanyard APIと連携しています。',
+        thumbnail: { url: 'https://placehold.co/800x450/E5E9F8/1E2B58?text=Mikan+Website' },
+        url: '#home'
+      },
+      {
+        id: 'prod-2',
+        title: 'シンプルタスクタイマー',
+        category: { name: 'アプリ' },
+        description: '集中と休憩のリズムをやさしくサポートするポモドーロタイマーWebアプリ。直感的な操作と落ち着いたUIが特徴です。',
+        thumbnail: { url: 'https://placehold.co/800x450/F4F6FC/1E2B58?text=Focus+Timer' }
+      },
+      {
+        id: 'prod-3',
+        title: 'ミニマルUIアイコンセット',
+        category: { name: 'デザイン' },
+        description: '丸みのある角と均一なストロークで設計された、個人開発・Webサイト向けのカスタムSVGアイコンコレクション。',
+        thumbnail: { url: 'https://placehold.co/800x450/C7D2FE/1E2B58?text=Minimal+UI+Icons' }
+      }
+    ];
 
     // Fallback News Articles (Displayed silently if microCMS endpoint has no entries or is unreachable)
     const FALLBACK_NEWS = [
@@ -347,6 +391,65 @@
       }
     }
 
+    async function fetchMicroCMSProducts() {
+      const { serviceDomain, apiKey, endpoint } = STATE.productCmsConfig;
+      STATE.productStatus = 'loading';
+
+      try {
+        const url = `https://${serviceDomain}.microcms.io/api/v1/${endpoint}`;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-MICROCMS-API-KEY': apiKey.trim()
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        const items = Array.isArray(data.contents) ? data.contents : (data.id ? [data] : []);
+        STATE.productItems = items;
+        STATE.productStatus = 'success';
+      } catch (err) {
+        STATE.productStatus = 'error';
+      }
+
+      if (STATE.currentRoute === 'products') {
+        renderCurrentPage();
+      }
+    }
+
+    function getDisplayProducts() {
+      if (STATE.productStatus === 'success' && STATE.productItems.length > 0) {
+        return STATE.productItems;
+      }
+      return FALLBACK_PRODUCTS;
+    }
+
+    function extractCategoryName(item) {
+      if (!item || !item.category) return 'その他';
+      if (Array.isArray(item.category)) {
+        const first = item.category[0];
+        if (!first) return 'その他';
+        return typeof first === 'object' ? (first.name || first.title || 'その他') : String(first);
+      }
+      if (typeof item.category === 'object') {
+        return item.category.name || item.category.title || 'その他';
+      }
+      return String(item.category);
+    }
+
+    function extractThumbnailUrl(item) {
+      if (!item) return null;
+      const imgField = item.thumbnail || item.eyecatch || item.image || item.cover;
+      if (!imgField) return null;
+      if (typeof imgField === 'string') return imgField;
+      if (imgField.url) return imgField.url;
+      return null;
+    }
+
     // Helper to get active news list (live microCMS or silent fallback)
     function getDisplayNews() {
       if (STATE.cmsStatus === 'success' && STATE.cmsArticles.length > 0) {
@@ -380,7 +483,7 @@
     // ==========================================
     // 3. Router & Navigation
     // ==========================================
-    const VALID_ROUTES = ['home', 'news', 'sns', 'contact', '404'];
+    const VALID_ROUTES = ['home', 'products', 'news', 'sns', 'contact', '404'];
 
     function navigateTo(route, event) {
       if (event) event.preventDefault();
@@ -396,20 +499,20 @@
       document.querySelectorAll('.nav-btn').forEach(btn => {
         const r = btn.getAttribute('data-route');
         if (r === STATE.currentRoute) {
-          btn.classList.add('bg-mikan-500', 'text-white', 'shadow-sm');
-          btn.classList.remove('text-charcoal', 'hover:bg-mikan-100');
+          btn.classList.add('text-mikan-500', 'border-b-2', 'border-mikan-500');
+          btn.classList.remove('text-charcoal', 'hover:text-mikan-500');
         } else {
-          btn.classList.remove('bg-mikan-500', 'text-white', 'shadow-sm');
-          btn.classList.add('text-charcoal', 'hover:bg-mikan-100');
+          btn.classList.remove('text-mikan-500', 'border-b-2', 'border-mikan-500');
+          btn.classList.add('text-charcoal', 'hover:text-mikan-500');
         }
       });
 
       document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
         const r = btn.getAttribute('data-route');
         if (r === STATE.currentRoute) {
-          btn.classList.add('bg-mikan-100', 'text-mikan-700');
+          btn.classList.add('bg-mikan-50', 'text-mikan-500', 'border-mikan-300');
         } else {
-          btn.classList.remove('bg-mikan-100', 'text-mikan-700');
+          btn.classList.remove('bg-mikan-50', 'text-mikan-500', 'border-mikan-300');
         }
       });
     }
@@ -439,6 +542,9 @@
         case 'home':
           html = renderHomePage();
           break;
+        case 'products':
+          html = renderProductsPage();
+          break;
         case 'news':
           html = renderNewsPage();
           break;
@@ -466,7 +572,7 @@
         online: { color: 'bg-emerald-500', label: 'Online' },
         idle: { color: 'bg-amber-400', label: 'Idle' },
         dnd: { color: 'bg-rose-500', label: 'Do Not Disturb' },
-        offline: { color: 'bg-neutral-400', label: 'Offline' }
+        offline: { color: 'bg-slate-400', label: 'Offline' }
       };
       const currentStatus = statusConfig[STATE.discord.status] || statusConfig.offline;
 
@@ -474,33 +580,38 @@
       const defaultDiscordAvatar = `https://cdn.discordapp.com/embed/avatars/${defaultDiscordIdx}.png`;
 
       return `
-        <!-- Hero Section -->
-        <section class="relative bg-white rounded-[2rem] border border-mikan-100 shadow-soft p-8 sm:p-14 overflow-hidden mb-16">
-          <div class="flex flex-col sm:flex-row items-center justify-between gap-8 sm:gap-12">
-            <!-- Left: Large Name -->
-            <div class="text-center sm:text-left">
-              <h1 class="font-display font-black text-5xl sm:text-7xl md:text-8xl text-charcoal tracking-tight">
-                みかん
-              </h1>
+        <!-- Hero Section (Inspired by clean academic/editorial layout) -->
+        <section class="relative bg-white rounded-[2rem] border border-slate-100 shadow-soft overflow-hidden mb-16">
+          <!-- Bottom Periwinkle/Lavender Accent Band -->
+          <div class="absolute bottom-0 inset-x-0 h-24 sm:h-28 bg-gradient-to-r from-accent-blue/65 via-mikan-200/75 to-accent-lavender/65 pointer-events-none"></div>
+
+          <div class="relative z-10 px-6 sm:px-12 pt-10 sm:pt-14 pb-12 sm:pb-16 flex flex-col md:flex-row items-center justify-between gap-10">
+            <!-- Left: Large Title -->
+            <div class="flex items-center w-full md:w-auto">
+              <div class="space-y-2 text-center md:text-left mx-auto md:mx-0">
+                <!-- Large Name -->
+                <h1 class="font-display font-black text-5xl sm:text-7xl text-charcoal tracking-wider">
+                  みかん
+                </h1>
+                <span class="block text-mikan-500 font-extrabold text-xl sm:text-2xl tracking-wide">Mikan</span>
+              </div>
             </div>
 
-            <!-- Right: Discord Avatar (Lanyard API) -->
-            <div class="flex justify-center shrink-0">
-              <div class="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center animate-float">
-                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-mikan-300/60 to-mikan-100/50 blur-2xl"></div>
-                <div class="relative w-44 h-44 sm:w-60 sm:h-60 rounded-full p-2 bg-gradient-to-br from-mikan-400 via-mikan-300 to-amber-200 shadow-xl">
-                  <div class="w-full h-full rounded-full overflow-hidden bg-neutral-100 flex items-center justify-center">
-                    ${STATE.discord.avatarUrl
-                      ? `<img src="${STATE.discord.avatarUrl}" alt="${STATE.discord.username}のアイコン" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultDiscordAvatar}';" class="w-full h-full object-cover" />`
-                      : `<div class="w-full h-full bg-neutral-200 animate-pulse flex items-center justify-center text-neutral-400">
-                           <i data-lucide="user" class="w-16 h-16"></i>
-                         </div>`
-                    }
-                  </div>
-                  <!-- Discord Status Indicator Dot -->
-                  <div title="Discord Status: ${currentStatus.label}" class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white p-1.5 shadow-md flex items-center justify-center">
-                    <span class="w-full h-full rounded-full ${currentStatus.color} block"></span>
-                  </div>
+            <!-- Right: Rounded Framing Card with Discord Avatar (Lanyard API) -->
+            <div class="relative flex justify-center shrink-0">
+              <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-[2.25rem] bg-gradient-to-br from-mikan-50 to-mikan-100 p-4 sm:p-5 shadow-lg border border-white flex items-center justify-center animate-float">
+                <div class="relative w-full h-full rounded-[1.75rem] overflow-hidden bg-white shadow-inner flex items-center justify-center">
+                  ${STATE.discord.avatarUrl
+                    ? `<img src="${STATE.discord.avatarUrl}" alt="${STATE.discord.username}のアイコン" referrerpolicy="no-referrer" onerror="this.onerror=null; this.src='${defaultDiscordAvatar}';" class="w-full h-full object-cover" />`
+                    : `<div class="w-full h-full bg-slate-100 animate-pulse flex items-center justify-center text-slate-400">
+                         <i data-lucide="user" class="w-16 h-16"></i>
+                       </div>`
+                  }
+                </div>
+
+                <!-- Navy Circular Arrow/Status Badge -->
+                <div title="Discord Status: ${currentStatus.label}" class="absolute -left-4 bottom-8 w-12 h-12 rounded-full bg-mikan-500 text-white shadow-lg flex items-center justify-center border-2 border-white">
+                  <span class="w-3.5 h-3.5 rounded-full ${currentStatus.color} block"></span>
                 </div>
               </div>
             </div>
@@ -508,34 +619,139 @@
         </section>
 
         <!-- Latest News Excerpt -->
-        <section class="bg-white rounded-[2rem] border border-mikan-100 p-6 sm:p-10 shadow-card">
+        <section class="bg-white rounded-[2rem] border border-slate-100 p-6 sm:p-10 shadow-card">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-            <h2 class="font-display font-black text-2xl text-charcoal">最新のお知らせ</h2>
-            <button onclick="navigateTo('news')" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-600 hover:text-mikan-700">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-6 rounded-full bg-mikan-500"></span>
+              <h2 class="font-display font-bold text-2xl text-charcoal tracking-wide">最新のお知らせ</h2>
+            </div>
+            <button onclick="navigateTo('news')" class="inline-flex items-center gap-1.5 text-sm font-bold text-mikan-500 hover:text-mikan-600">
               お知らせ一覧へ <i data-lucide="arrow-right" class="w-4 h-4"></i>
             </button>
           </div>
 
-          <div class="divide-y divide-mikan-100">
+          <div class="divide-y divide-slate-100">
             ${latestNews.map((item, idx) => {
               const catName = item.category?.name || item.category || 'お知らせ';
               return `
                 <article onclick="openNewsModal(${idx})" class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-6 cursor-pointer group">
                   <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <div class="flex items-center gap-2.5 shrink-0">
-                      <time class="text-xs font-bold text-neutral-400 font-mono">${formatDate(item.publishedAt || item.createdAt)}</time>
-                      <span class="px-2.5 py-0.5 rounded-md bg-mikan-50 text-mikan-700 text-xs font-bold">${catName}</span>
+                      <time class="text-xs font-bold text-slate-400 font-mono">${formatDate(item.publishedAt || item.createdAt)}</time>
+                      <span class="px-2.5 py-0.5 rounded bg-mikan-50 text-mikan-500 text-xs font-bold">${catName}</span>
                     </div>
                     <h3 class="font-bold text-sm sm:text-base text-charcoal group-hover:text-mikan-500 transition-colors line-clamp-1">
                       ${item.title || '無題のお知らせ'}
                     </h3>
                   </div>
-                  <i data-lucide="chevron-right" class="hidden sm:block w-4 h-4 text-neutral-400 group-hover:text-mikan-500 group-hover:translate-x-1 transition-all shrink-0"></i>
+                  <i data-lucide="chevron-right" class="hidden sm:block w-4 h-4 text-slate-400 group-hover:text-mikan-500 group-hover:translate-x-1 transition-all shrink-0"></i>
                 </article>
               `;
             }).join('')}
           </div>
         </section>
+      `;
+    }
+
+    // --- 4.1.5 PRODUCTS PAGE (microCMS: mikan-product) ---
+    function setProductCategory(cat) {
+      STATE.selectedProductCategory = cat;
+      renderCurrentPage();
+    }
+
+    function renderProductsPage() {
+      const allProducts = getDisplayProducts();
+      const categories = ['すべて', ...new Set(allProducts.map(p => extractCategoryName(p)).filter(Boolean))];
+      const currentCat = categories.includes(STATE.selectedProductCategory) ? STATE.selectedProductCategory : 'すべて';
+
+      const filteredProducts = currentCat === 'すべて'
+        ? allProducts
+        : allProducts.filter(p => extractCategoryName(p) === currentCat);
+
+      return `
+        <div class="space-y-8">
+          <!-- Page Header & Category Filter at Top -->
+          <div class="bg-white rounded-[2rem] border border-slate-100 p-8 sm:p-10 shadow-card space-y-6">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mikan-50 text-mikan-500 text-xs font-bold mb-2">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i> Products
+              </div>
+              <h1 class="font-display font-bold text-3xl sm:text-4xl text-charcoal tracking-wide">プロダクト</h1>
+              <p class="text-slate-600 text-sm sm:text-base mt-2">
+                これまで制作したWebサイト・アプリ・デザイン作品の一覧です。
+              </p>
+            </div>
+
+            <!-- Top Category Tabs -->
+            <div class="flex flex-wrap items-center gap-2 pt-4 border-t border-slate-100">
+              ${categories.map(cat => {
+                const isActive = cat === currentCat;
+                return `
+                  <button
+                    onclick="setProductCategory('${cat.replace(/'/g, "\\'")}')"
+                    class="px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all ${
+                      isActive
+                        ? 'bg-mikan-500 text-white shadow-sm'
+                        : 'bg-mikan-50 text-mikan-500 hover:bg-mikan-100'
+                    }">
+                    ${cat}
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Products Grid (Category -> Thumbnail -> Title -> Description) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            ${filteredProducts.map((item) => {
+              const originalIndex = allProducts.indexOf(item);
+              const catName = extractCategoryName(item);
+              const thumbUrl = extractThumbnailUrl(item);
+              const title = item.title || '無題のプロダクト';
+              const rawDesc = item.content || item.description || '';
+              const plainDesc = stripHtml(rawDesc) || '詳細をクリックしてご覧ください。';
+
+              return `
+                <article onclick="openProductModal(${originalIndex})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-card hover:shadow-soft hover:border-mikan-300 transition-all flex flex-col">
+                  <!-- Top: Category Badge -->
+                  <div class="px-5 pt-5 pb-3 flex items-center justify-between">
+                    <span class="px-3 py-1 rounded-full bg-mikan-50 text-mikan-500 text-xs font-bold">
+                      ${catName}
+                    </span>
+                    <span class="w-7 h-7 rounded-full bg-mikan-500 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">
+                      <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </span>
+                  </div>
+
+                  <!-- Thumbnail -->
+                  <div class="px-5">
+                    <div class="w-full aspect-video rounded-2xl overflow-hidden bg-mikan-50 border border-slate-100 flex items-center justify-center">
+                      ${thumbUrl
+                        ? `<img src="${thumbUrl}" alt="${title}" onerror="this.onerror=null; this.src='https://placehold.co/800x450/F4F6FC/1E2B58?text=No+Image';" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />`
+                        : `<div class="flex flex-col items-center justify-center text-mikan-400">
+                             <i data-lucide="image" class="w-8 h-8 mb-1"></i>
+                             <span class="text-xs font-bold">NO IMAGE</span>
+                           </div>`
+                      }
+                    </div>
+                  </div>
+
+                  <!-- Title & Description -->
+                  <div class="p-5 pt-4 flex-grow flex flex-col justify-between">
+                    <div>
+                      <h2 class="font-display font-bold text-lg sm:text-xl text-charcoal group-hover:text-mikan-500 transition-colors line-clamp-1">
+                        ${title}
+                      </h2>
+                      <p class="text-sm text-slate-600 mt-2 line-clamp-3 leading-relaxed">
+                        ${plainDesc}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              `;
+            }).join('')}
+          </div>
+        </div>
       `;
     }
 
@@ -546,12 +762,12 @@
       return `
         <div class="space-y-8">
           <!-- Page Header -->
-          <div class="bg-white rounded-[2rem] border border-mikan-100 p-8 sm:p-10 shadow-card">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mikan-50 text-mikan-700 text-xs font-bold mb-2">
+          <div class="bg-white rounded-[2rem] border border-slate-100 p-8 sm:p-10 shadow-card">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mikan-50 text-mikan-500 text-xs font-bold mb-2">
               <i data-lucide="rss" class="w-3.5 h-3.5"></i> News & Updates
             </div>
-            <h1 class="font-display font-black text-3xl sm:text-4xl text-charcoal">お知らせ</h1>
-            <p class="text-neutral-600 text-sm sm:text-base mt-2">
+            <h1 class="font-display font-bold text-3xl sm:text-4xl text-charcoal tracking-wide">お知らせ</h1>
+            <p class="text-slate-600 text-sm sm:text-base mt-2">
               「みかん」の最新の活動情報やイベント・リリースのお知らせをお届けします。
             </p>
           </div>
@@ -562,18 +778,18 @@
               const catName = article.category?.name || article.category || 'お知らせ';
               const excerpt = stripHtml(article.content || article.body || article.description || '記事の詳細をクリックしてご覧ください。');
               return `
-                <article onclick="openNewsModal(${idx})" class="group cursor-pointer bg-white rounded-3xl border border-mikan-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
+                <article onclick="openNewsModal(${idx})" class="group cursor-pointer bg-white rounded-3xl border border-slate-100 p-6 sm:p-7 shadow-card hover:shadow-soft hover:border-mikan-300 transition-all">
                   <div class="flex flex-wrap items-center gap-3 mb-2.5">
-                    <time class="text-xs font-bold font-mono text-neutral-400">${formatDate(article.publishedAt || article.createdAt)}</time>
-                    <span class="px-3 py-0.5 rounded-full bg-mikan-50 text-mikan-700 text-xs font-bold">${catName}</span>
+                    <time class="text-xs font-bold font-mono text-slate-400">${formatDate(article.publishedAt || article.createdAt)}</time>
+                    <span class="px-3 py-0.5 rounded bg-mikan-50 text-mikan-500 text-xs font-bold">${catName}</span>
                   </div>
                   <h2 class="font-display font-bold text-lg sm:text-xl text-charcoal group-hover:text-mikan-500 transition-colors">
                     ${article.title || '無題のお知らせ'}
                   </h2>
-                  <p class="text-sm text-neutral-600 mt-2 line-clamp-2 leading-relaxed">
+                  <p class="text-sm text-slate-600 mt-2 line-clamp-2 leading-relaxed">
                     ${excerpt}
                   </p>
-                  <div class="mt-4 flex items-center text-xs font-bold text-mikan-600 group-hover:translate-x-1 transition-transform">
+                  <div class="mt-4 flex items-center text-xs font-bold text-mikan-500 group-hover:translate-x-1 transition-transform">
                     記事全文を読む <i data-lucide="chevron-right" class="w-4 h-4 ml-0.5"></i>
                   </div>
                 </article>
@@ -588,37 +804,37 @@
     function renderSnsPage() {
       return `
         <div class="space-y-8">
-          <div class="bg-white rounded-[2rem] border border-mikan-100 p-8 sm:p-10 shadow-card text-center max-w-3xl mx-auto">
-            <span class="text-xs font-bold tracking-widest text-mikan-500 uppercase">Social Media</span>
-            <h1 class="font-display font-black text-3xl sm:text-4xl text-charcoal mt-1">公式SNS・コミュニティ</h1>
-            <p class="text-neutral-600 text-sm sm:text-base mt-3">
-              「みかん」の最新情報や制作の裏側、日々のつぶやきは各種SNSで発信しています。<br class="hidden sm:inline">
-              ぜひ気軽にフォローやメッセージをお寄せください！
+          <div class="bg-white rounded-[2rem] border border-slate-100 p-8 sm:p-10 shadow-card text-center max-w-3xl mx-auto">
+            <span class="font-script text-2xl text-mikan-500 brush-blue">Social Media</span>
+            <h1 class="font-display font-bold text-3xl sm:text-4xl text-charcoal mt-2 tracking-wide">公式SNS・コミュニティ</h1>
+            <p class="text-slate-600 text-sm sm:text-base mt-3">
+              「みかん」の最新情報や制作の裏側、日々のつぶやきはSNSで発信しています。<br class="hidden sm:inline">
+              ぜひ気軽にフォローやメッセージをお寄せください。
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             ${SNS_DATA.map(sns => `
-              <div class="bg-white rounded-3xl border-2 ${sns.accentClass} p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
+              <div class="bg-white rounded-3xl border border-slate-200 hover:border-mikan-500 p-6 shadow-card hover:shadow-soft transition-all flex flex-col justify-between">
                 <div>
                   <div class="flex items-start justify-between mb-4">
-                    <div class="w-12 h-12 rounded-2xl ${sns.bgClass} flex items-center justify-center shadow-sm">
+                    <div class="w-12 h-12 rounded-2xl bg-mikan-500 text-white flex items-center justify-center shadow-sm">
                       ${sns.iconSvg}
                     </div>
-                    <span class="px-3 py-1 rounded-full bg-mikan-50 text-mikan-700 text-xs font-bold">${sns.badge}</span>
+                    <span class="px-3 py-1 rounded-full bg-mikan-50 text-mikan-500 text-xs font-bold">${sns.badge}</span>
                   </div>
                   <h2 class="font-display font-bold text-xl text-charcoal">${sns.name}</h2>
-                  <p class="text-xs font-mono font-bold text-neutral-400 mt-0.5">${sns.handle}</p>
-                  <p class="text-sm text-neutral-600 mt-3 leading-relaxed">
+                  <p class="text-xs font-mono font-bold text-slate-400 mt-0.5">${sns.handle}</p>
+                  <p class="text-sm text-slate-600 mt-3 leading-relaxed">
                     ${sns.description}
                   </p>
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-neutral-100 flex items-center gap-2">
-                  <a href="${sns.url}" target="_blank" rel="noopener noreferrer" class="flex-grow py-2.5 px-4 rounded-xl bg-mikan-50 hover:bg-mikan-500 text-mikan-700 hover:text-white font-bold text-xs text-center transition-colors flex items-center justify-center gap-1.5">
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2">
+                  <a href="${sns.url}" target="_blank" rel="noopener noreferrer" class="flex-grow py-2.5 px-4 rounded-xl bg-mikan-500 hover:bg-mikan-600 text-white font-bold text-xs text-center transition-colors flex items-center justify-center gap-1.5">
                     フォロー・開く <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                   </a>
-                  <button onclick="copyHandle('${sns.handle}')" class="p-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition-colors" title="IDをコピー">
+                  <button onclick="copyHandle('${sns.handle}')" class="p-2.5 rounded-xl bg-mikan-50 hover:bg-mikan-100 text-mikan-500 transition-colors" title="IDをコピー">
                     <i data-lucide="copy" class="w-4 h-4"></i>
                   </button>
                 </div>
@@ -643,21 +859,21 @@
     function renderContactPage() {
       return `
         <div class="max-w-2xl mx-auto text-center py-8">
-          <div class="bg-white rounded-[2.5rem] border border-mikan-100 p-8 sm:p-14 shadow-soft space-y-6">
-            <div class="w-16 h-16 rounded-2xl bg-neutral-900 text-white flex items-center justify-center mx-auto shadow-md">
+          <div class="bg-white rounded-[2.5rem] border border-slate-100 p-8 sm:p-14 shadow-soft space-y-6">
+            <div class="w-16 h-16 rounded-2xl bg-mikan-500 text-white flex items-center justify-center mx-auto shadow-md">
               <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </div>
 
             <div class="space-y-2">
-              <span class="text-xs font-bold tracking-widest text-mikan-500 uppercase">Contact</span>
-              <h1 class="font-display font-black text-2xl sm:text-3xl text-charcoal">お問い合わせ</h1>
-              <p class="text-sm sm:text-base text-neutral-600 max-w-md mx-auto leading-relaxed">
+              <span class="font-script text-2xl text-mikan-500 brush-lavender">Contact</span>
+              <h1 class="font-display font-bold text-2xl sm:text-3xl text-charcoal pt-1 tracking-wide">お問い合わせ</h1>
+              <p class="text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
                 お問い合わせやご連絡は、X（Twitter）のDMまたはリプライにてお気軽にお寄せください。
               </p>
             </div>
 
             <div class="pt-4">
-              <a href="https://x.com/mikan3nd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-sm shadow-lg transition-all">
+              <a href="https://x.com/mikan3nd" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-mikan-500 hover:bg-mikan-600 text-white font-bold text-sm shadow-lg transition-all">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 @mikan3nd のDMを送る
               </a>
@@ -688,47 +904,25 @@
     function render404Page() {
       return `
         <div class="max-w-2xl mx-auto text-center py-8 sm:py-12">
-          <div class="bg-white rounded-[2.5rem] border border-mikan-100 p-8 sm:p-14 shadow-soft space-y-6">
-            <!-- Peeled Mikan Illustration SVG -->
-            <div class="w-48 h-48 mx-auto animate-float">
-              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Peeled Skin Base -->
-                <path d="M40 140C25 130 20 110 38 105C55 100 65 118 80 120" stroke="#FF7A00" stroke-width="12" stroke-linecap="round"/>
-                <path d="M160 140C175 130 180 110 162 105C145 100 135 118 120 120" stroke="#FF7A00" stroke-width="12" stroke-linecap="round"/>
-                <path d="M65 158C55 172 75 182 88 168" stroke="#FF9E40" stroke-width="11" stroke-linecap="round"/>
-                <path d="M135 158C145 172 125 182 112 168" stroke="#FF9E40" stroke-width="11" stroke-linecap="round"/>
-                <!-- Inner White Pith & Segments -->
-                <circle cx="100" cy="105" r="52" fill="#FFF8F0" stroke="#FFDCB5" stroke-width="4"/>
-                <circle cx="100" cy="105" r="44" fill="#FF9E40"/>
-                <!-- Segment Lines -->
-                <line x1="100" y1="61" x2="100" y2="149" stroke="#FFFDF9" stroke-width="3"/>
-                <line x1="56" y1="105" x2="144" y2="105" stroke="#FFFDF9" stroke-width="3"/>
-                <line x1="69" y1="74" x2="131" y2="136" stroke="#FFFDF9" stroke-width="3"/>
-                <line x1="131" y1="74" x2="69" y2="136" stroke="#FFFDF9" stroke-width="3"/>
-                <circle cx="100" cy="105" r="9" fill="#FFFDF9"/>
-                <!-- Question Mark -->
-                <text x="148" y="62" fill="#FF7A00" font-family="sans-serif" font-weight="900" font-size="34">?</text>
-              </svg>
-            </div>
-
+          <div class="bg-white rounded-[2.5rem] border border-slate-100 p-8 sm:p-14 shadow-soft space-y-6">
             <div class="space-y-2">
-              <span class="inline-block px-4 py-1 rounded-full bg-mikan-100 text-mikan-700 font-display font-black text-sm tracking-widest">
+              <span class="inline-block px-4 py-1 rounded-full bg-mikan-50 text-mikan-500 font-display font-bold text-sm tracking-widest">
                 404 NOT FOUND
               </span>
-              <h1 class="font-display font-black text-2xl sm:text-4xl text-charcoal pt-2">
-                お探しのページは、<br>皮をむかれてしまったようです…
+              <h1 class="font-display font-bold text-2xl sm:text-4xl text-charcoal pt-3 leading-snug">
+                お探しのページは、<br>見つかりませんでした
               </h1>
-              <p class="text-sm sm:text-base text-neutral-600 max-w-md mx-auto pt-2 leading-relaxed">
-                アクセスしようとしたページは削除されたか、URLが変更された可能性があります。こたつに戻ってトップページからお探しください。
+              <p class="text-sm sm:text-base text-slate-600 max-w-md mx-auto pt-2 leading-relaxed">
+                アクセスしようとしたページは削除されたか、URLが変更された可能性があります。トップページより改めてお探しください。
               </p>
             </div>
 
             <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
-              <button onclick="navigateTo('home')" class="px-7 py-3.5 rounded-full bg-mikan-500 hover:bg-mikan-600 text-white font-bold text-sm shadow-lg shadow-mikan-500/25 transition-all flex items-center gap-2">
+              <button onclick="navigateTo('home')" class="px-7 py-3.5 rounded-full bg-mikan-500 hover:bg-mikan-600 text-white font-bold text-sm shadow-lg transition-all flex items-center gap-2">
                 <i data-lucide="home" class="w-4 h-4"></i>
                 Homeへ戻る
               </button>
-              <button onclick="navigateTo('news')" class="px-6 py-3.5 rounded-full bg-mikan-50 hover:bg-mikan-100 text-mikan-700 font-bold text-sm transition-all">
+              <button onclick="navigateTo('news')" class="px-6 py-3.5 rounded-full bg-mikan-50 hover:bg-mikan-100 text-mikan-500 font-bold text-sm transition-all">
                 お知らせを見る
               </button>
             </div>
@@ -738,8 +932,50 @@
     }
 
     // ==========================================
-    // 5. Modals (News Detail)
+    // 5. Modals (Product & News Detail)
     // ==========================================
+    function openProductModal(index) {
+      const items = getDisplayProducts();
+      const item = items[index];
+      if (!item) return;
+
+      const catName = extractCategoryName(item);
+      const thumbUrl = extractThumbnailUrl(item);
+      const title = item.title || item.name || '無題のプロダクト';
+      const bodyHtml = item.content || item.body || `<p>${item.description || item.summary || '詳細情報はありません。'}</p>`;
+      const linkUrl = item.url || item.link || item.siteUrl || '';
+
+      const modalBody = document.getElementById('modal-body');
+      modalBody.innerHTML = `
+        <article class="space-y-5">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-mikan-100 text-mikan-800 text-xs font-bold">${catName}</span>
+          </div>
+
+          ${thumbUrl ? `
+            <img src="${thumbUrl}" alt="${title}" class="w-full aspect-video object-cover rounded-2xl border border-mikan-100" />
+          ` : ''}
+
+          <h2 class="font-display font-black text-2xl sm:text-3xl text-charcoal leading-snug">
+            ${title}
+          </h2>
+
+          <div class="pt-4 border-t border-mikan-100 text-sm sm:text-base text-neutral-700 cms-content">
+            ${bodyHtml}
+          </div>
+
+          ${linkUrl ? `
+            <div class="pt-2">
+              <a href="${linkUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-mikan-500 hover:bg-mikan-600 text-white font-bold text-sm shadow-md transition-all">
+                サイト・作品を見る <i data-lucide="external-link" class="w-4 h-4"></i>
+              </a>
+            </div>
+          ` : ''}
+        </article>
+      `;
+      openModal();
+    }
+
     function openNewsModal(index) {
       const items = getDisplayNews();
       const article = items[index];
@@ -814,6 +1050,8 @@
       fetchDiscordLanyard();
       // Fetch news articles from microCMS silently
       fetchMicroCMSNews();
+      // Fetch products from microCMS silently
+      fetchMicroCMSProducts();
     });
   </script>
 </body>
